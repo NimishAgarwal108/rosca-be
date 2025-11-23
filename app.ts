@@ -1,10 +1,17 @@
 import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
+import connectDB from './src/utils/db.js';
+import config from './src/config/config.js';
 import errorHandler from './src/middleware/errorHandler.js';
 import roomRoutes from './src/routes/roomRoutes.js';
 import userRoutes from './src/routes/userRoutes.js';
 import HTTP_STATUS_CODE from './src/utils/httpStatusCode.js';
 import logger from './src/utils/logger.js';
+
+// Connect to database immediately
+connectDB(config.db.uri).catch(err => {
+  logger.error('Database connection failed:', err);
+});
 
 const app = express();
 
