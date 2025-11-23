@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import bcryptjs from 'bcryptjs'; 
+import bcryptjs from 'bcryptjs';
 import { ApiError } from '../utils/apiError.js';
 import HTTP_STATUS_CODE from '../utils/httpStatusCode.js';
 import { sendOtpEmail } from '../services/emailService.js';
@@ -13,7 +13,6 @@ import {
 } from '../utils/index.js';
 import * as userService from '../services/userService.js';
 import { asyncWrapper } from '../utils/asyncWrapper.js';
-import config from '../config/config.js';
 
 const sendResponse = (res: Response, statusCode: number, responseObj: object) => {
   res.status(statusCode).json(responseObj);
@@ -30,12 +29,12 @@ const signupUserLogic = async (req: Request, res: Response) => {
   if (!isValid) {
     throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, message);
   }
-  const hashedPassword = await bcryptjs.hash(password, config.security.bcryptSaltRounds);
+  // Let the model's pre-save hook handle hashing
   const user = await userService.createUser({
     firstName,
     lastName,
     email: sanitizedEmail,
-    password: hashedPassword,
+    password: password, // Plain password - will be hashed by model
   });
   sendResponse(res, HTTP_STATUS_CODE.CREATED, {
     success: true,
@@ -51,27 +50,14 @@ export const signupUser = asyncWrapper(signupUserLogic);
 const loginUserLogic = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const sanitizedEmail = sanitizeEmail(email);
-  
-  console.log('🔐 Login attempt:', { email: sanitizedEmail });
-  
   const user = await userService.findUserByEmail(sanitizedEmail);
-  
   if (!user) {
-    console.log('❌ User not found');
-    throw new ApiError(HTTP_STATUS_CODE.NOT_FOUND, 'Invalid email or password');
+    throw new ApiError(HTTP_STATUS_CODE.UNAUTHORIZED, 'Invalid email or password');
   }
-  
-  console.log('✅ User found:', { email: user.email, hasPassword: !!user.password });
-  console.log('🔍 Comparing passwords...');
-  
   const isPasswordCorrect = await bcryptjs.compare(password, user.password);
-  
-  console.log('🔐 Password match result:', isPasswordCorrect);
-  
   if (!isPasswordCorrect) {
     throw new ApiError(HTTP_STATUS_CODE.UNAUTHORIZED, 'Invalid email or password');
   }
-  
   sendResponse(res, HTTP_STATUS_CODE.OK, {
     success: true,
     user: {
@@ -135,8 +121,8 @@ const resetPasswordLogic = async (req: Request, res: Response) => {
   if (isOtpExpired(user.resetOtpExpiry!)) {
     throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, 'OTP expired');
   }
-  const hashedPassword = await bcryptjs.hash(newPassword, config.security.bcryptSaltRounds);
-  await userService.resetPassword(sanitizedEmail, hashedPassword);
+  // Send plain password - will be hashed by model's pre-save hook
+  await userService.resetPassword(sanitizedEmail, newPassword);
   sendResponse(res, HTTP_STATUS_CODE.OK, {
     success: true,
     message: 'Password reset successfully',
