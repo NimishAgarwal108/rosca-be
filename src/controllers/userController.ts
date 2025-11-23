@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs'; 
 import { ApiError } from '../utils/apiError.js';
 import HTTP_STATUS_CODE from '../utils/httpStatusCode.js';
 import { sendOtpEmail } from '../services/emailService.js';
@@ -30,7 +30,7 @@ const signupUserLogic = async (req: Request, res: Response) => {
   if (!isValid) {
     throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, message);
   }
-  const hashedPassword = await bcrypt.hash(password, config.security.bcryptSaltRounds);
+  const hashedPassword = await bcryptjs.hash(password, config.security.bcryptSaltRounds);
   const user = await userService.createUser({
     firstName,
     lastName,
@@ -55,7 +55,7 @@ const loginUserLogic = async (req: Request, res: Response) => {
   if (!user) {
     throw new ApiError(HTTP_STATUS_CODE.NOT_FOUND, 'Invalid email or password');
   }
-  const isPasswordCorrect = await bcrypt.compare(password, user.password);
+  const isPasswordCorrect = await bcryptjs.compare(password, user.password);
   if (!isPasswordCorrect) {
     throw new ApiError(HTTP_STATUS_CODE.UNAUTHORIZED, 'Invalid email or password');
   }
@@ -122,7 +122,7 @@ const resetPasswordLogic = async (req: Request, res: Response) => {
   if (isOtpExpired(user.resetOtpExpiry!)) {
     throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, 'OTP expired');
   }
-  const hashedPassword = await bcrypt.hash(newPassword, config.security.bcryptSaltRounds);
+  const hashedPassword = await bcryptjs.hash(newPassword, config.security.bcryptSaltRounds);
   await userService.resetPassword(sanitizedEmail, hashedPassword);
   sendResponse(res, HTTP_STATUS_CODE.OK, {
     success: true,
