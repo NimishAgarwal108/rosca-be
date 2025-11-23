@@ -14,19 +14,20 @@ const sendResponse = (res: Response, statusCode: number, responseObj: object) =>
   res.status(statusCode).json(responseObj);
 };
 
-// CORS Middleware - MUST BE FIRST, BEFORE ROUTES
+// CORS Middleware - MUST BE FIRST
 app.use(cors({
-  origin: [
-    'https://rosca-fe.vercel.app',
-    'http://localhost:3000',
-    'http://localhost:3001'
-  ],
+  origin: '*', // Allow all origins for now to test
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 }));
 
-// Request logging middleware - BEFORE routes
+// Handle preflight requests explicitly
+app.options('*', cors());
+
+// Request logging middleware
 app.use((req: Request, res: Response, next: NextFunction) => {
   logger.info('Incoming request', {
     method: req.method,
