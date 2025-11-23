@@ -6,35 +6,26 @@ import userRoutes from './src/routes/userRoutes.js';
 import HTTP_STATUS_CODE from './src/utils/httpStatusCode.js';
 import logger from './src/utils/logger.js';
 
-// Initialize app
 const app = express();
 
-// Utility for consistent JSON responses
 const sendResponse = (res: Response, statusCode: number, responseObj: object) => {
   res.status(statusCode).json(responseObj);
 };
 
-// CORS Middleware - MUST BE FIRST
-app.use(cors({
-  origin: [
-    'https://rosca-fe-alpha.vercel.app',
-    'https://rosca-fe.vercel.app',
-    'http://localhost:3000',
-    'http://localhost:3001'
-  ],
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  preflightContinue: false,
-  optionsSuccessStatus: 204
-}));
-
-// Handle ALL OPTIONS requests explicitly BEFORE other middleware
-app.options('*', (req, res) => {
-  res.status(204).end();
+// Manual CORS - VERY FIRST MIDDLEWARE
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  next();
 });
 
-// Request logging middleware
+// Rest of your middleware...
 app.use((req: Request, res: Response, next: NextFunction) => {
   logger.info('Incoming request', {
     method: req.method,
@@ -44,16 +35,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-// Apply JSON and urlencoded body parsing ONLY to user-related routes
 app.use('/api/users', express.json(), express.urlencoded({ extended: true }), userRoutes);
-
-// For room routes (with file upload), DO NOT apply global json/urlencoded parser
 app.use('/api/rooms', roomRoutes);
-
-// Serve uploads folder as static
 app.use('/uploads', express.static('uploads'));
 
-// Root welcome route
 app.get('/', (req: Request, res: Response) => {
   sendResponse(res, HTTP_STATUS_CODE.OK, {
     success: true,
@@ -71,7 +56,6 @@ app.get('/', (req: Request, res: Response) => {
   });
 });
 
-// 404 handler middleware
 app.use((req: Request, res: Response) => {
   logger.warn('Route not found', {
     method: req.method,
@@ -84,7 +68,6 @@ app.use((req: Request, res: Response) => {
   });
 });
 
-// Error handler
 app.use(errorHandler);
 
 export default app;
