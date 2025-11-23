@@ -8,10 +8,7 @@ import userRoutes from './src/routes/userRoutes.js';
 import HTTP_STATUS_CODE from './src/utils/httpStatusCode.js';
 import logger from './src/utils/logger.js';
 
-// Connect to database immediately
-connectDB(config.db.uri).catch(err => {
-  logger.error('Database connection failed:', err);
-});
+
 
 const app = express();
 
