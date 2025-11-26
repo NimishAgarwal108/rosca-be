@@ -1,14 +1,10 @@
-import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
-import connectDB from './src/utils/db.js';
-import config from './src/config/config.js';
 import errorHandler from './src/middleware/errorHandler.js';
 import roomRoutes from './src/routes/roomRoutes.js';
 import userRoutes from './src/routes/userRoutes.js';
 import HTTP_STATUS_CODE from './src/utils/httpStatusCode.js';
 import logger from './src/utils/logger.js';
-
-
+import googleAuthRoutes from './src/routes/googleAuthroutes.js';
 
 const app = express();
 
@@ -29,7 +25,11 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-// Rest of your middleware...
+// Body parsing middleware - BEFORE routes
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Logging middleware
 app.use((req: Request, res: Response, next: NextFunction) => {
   logger.info('Incoming request', {
     method: req.method,
@@ -39,10 +39,13 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-app.use('/api/users', express.json(), express.urlencoded({ extended: true }), userRoutes);
+// Route mounting
+app.use('/api/users', userRoutes);         // user routes mounted at /api/users
 app.use('/api/rooms', roomRoutes);
+app.use('/api', googleAuthRoutes);
 app.use('/uploads', express.static('uploads'));
 
+// Root endpoint with API documentation / status
 app.get('/', (req: Request, res: Response) => {
   sendResponse(res, HTTP_STATUS_CODE.OK, {
     success: true,
@@ -56,10 +59,12 @@ app.get('/', (req: Request, res: Response) => {
       updateRoom: 'PUT /api/rooms/:id',
       deleteRoom: 'DELETE /api/rooms/:id',
       getRoomById: 'GET /api/rooms/:id',
+      getUserProfile: 'GET /api/users/me',    // Added endpoint doc
     },
   });
 });
 
+// 404 Handler for unknown routes
 app.use((req: Request, res: Response) => {
   logger.warn('Route not found', {
     method: req.method,
@@ -72,6 +77,7 @@ app.use((req: Request, res: Response) => {
   });
 });
 
+// Global error handler
 app.use(errorHandler);
 
 export default app;

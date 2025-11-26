@@ -13,8 +13,8 @@ interface DBConfig {
 
 interface EmailConfig {
   user: string;
-  pass: string;  // Changed from 'password' to 'pass'
-  apiKey?: string;  // Optional
+  pass: string;
+  apiKey?: string;
 }
 
 interface CloudinaryConfig {
@@ -38,6 +38,14 @@ interface LoggingConfig {
   appName: string;
 }
 
+// New: Google OAuth Config
+interface GoogleOAuthConfig {
+  clientId: string;
+  clientSecret: string;
+  redirectUri: string;
+  scope: string;
+}
+
 interface Config {
   app: AppConfig;
   db: DBConfig;
@@ -46,6 +54,7 @@ interface Config {
   security: SecurityConfig;
   jwt: JWTConfig;
   logging: LoggingConfig;
+  googleOAuth: GoogleOAuthConfig; // Added
 }
 
 const config: Config = {
@@ -59,7 +68,7 @@ const config: Config = {
   },
   email: {
     user: process.env.EMAIL_USER || '',
-    pass: process.env.EMAIL_PASSWORD || '',  // Maps EMAIL_PASSWORD to 'pass'
+    pass: process.env.EMAIL_PASSWORD || '',
     apiKey: process.env.EMAIL_API_KEY,
   },
   cloudinary: {
@@ -79,6 +88,33 @@ const config: Config = {
     nodeEnv: process.env.NODE_ENV || 'development',
     appName: process.env.APP_NAME || 'findmyroom',
   },
+  // New: Google OAuth Configuration
+  googleOAuth: {
+    clientId: process.env.GOOGLE_CLIENT_ID || '',
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+    redirectUri: process.env.GOOGLE_REDIRECT_URI || 'http://localhost:3000/api/auth/google/callback',
+    scope: [
+      'https://www.googleapis.com/auth/userinfo.profile',
+      'https://www.googleapis.com/auth/userinfo.email'
+    ].join(' ')
+  }
+};
+
+// Helper function to generate Google OAuth URL
+export const getGoogleAuthUrl = (): string => {
+  const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
+  
+  const options = {
+    redirect_uri: config.googleOAuth.redirectUri,
+    client_id: config.googleOAuth.clientId,
+    access_type: 'offline',
+    response_type: 'code',
+    prompt: 'consent',
+    scope: config.googleOAuth.scope
+  };
+
+  const qs = new URLSearchParams(options);
+  return `${rootUrl}?${qs.toString()}`;
 };
 
 export default config;

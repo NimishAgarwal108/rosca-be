@@ -10,6 +10,9 @@ export interface IUser extends Document {
   resetOtp?: string | null;
   resetOtpExpiry?: Date | null;
   comparePassword: (candidatePassword: string) => Promise<boolean>;
+  googleId?: string;
+  profilePicture?: string;
+  isVerified: boolean;
 }
 
 // Schema definition with timestamps enabled
@@ -35,7 +38,9 @@ const userSchema: Schema<IUser> = new Schema(
     },
     password: {
       type: String,
-      required: [true, 'Password is required'],
+      required: function () {
+        return !this.googleId;
+      },
       minlength: [6, 'Password must be at least 6 characters'],
     },
     resetOtp: {
@@ -45,6 +50,20 @@ const userSchema: Schema<IUser> = new Schema(
     resetOtpExpiry: {
       type: Date,
       default: null,
+    },
+    googleId: {
+      type: String,
+      required: false,
+      unique: true,
+      sparse: true, // Allows multiple null values
+    },
+    profilePicture: {
+      type: String,
+      required: false,
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
     },
   },
   {
