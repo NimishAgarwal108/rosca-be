@@ -11,7 +11,7 @@ export const googleOAuthHandler = asyncWrapper(
     const code = req.query.code as string;
 
     if (!code) {
-      const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3001';
+      const frontendUrl = process.env.FRONTEND_URL || '';
       return res.redirect(`${frontendUrl}/signup?error=no_code`);
     }
 
@@ -20,7 +20,7 @@ export const googleOAuthHandler = asyncWrapper(
       const googleUser = await getGoogleUser(id_token, access_token);
 
       if (!googleUser.verified_email) {
-        const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3001';
+        const frontendUrl = process.env.FRONTEND_URL || '';
         return res.redirect(`${frontendUrl}/signup?error=email_not_verified`);
       }
 
@@ -80,14 +80,14 @@ export const googleOAuthHandler = asyncWrapper(
       // Encode user data as URL parameter
       const userDataEncoded = encodeURIComponent(JSON.stringify(userData));
 
-      const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3001';
+      const frontendUrl = process.env.FRONTEND_URL || '';
       
       // Redirect with BOTH token and user data
       res.redirect(`${frontendUrl}/auth/callback?token=${token}&user=${userDataEncoded}`);
       
     } catch (error: any) {
       console.error('Google OAuth Error:', error);
-      const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3001';
+      const frontendUrl = process.env.FRONTEND_URL || '';
       res.redirect(`${frontendUrl}/signup?error=oauth_failed`);
     }
   }
