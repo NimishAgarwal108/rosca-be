@@ -12,18 +12,26 @@ const sendResponse = (res: Response, statusCode: number, responseObj: object) =>
   res.status(statusCode).json(responseObj);
 };
 
-// Manual CORS - VERY FIRST MIDDLEWARE
+// ============ CORS MIDDLEWARE - MUST BE FIRST ============
 app.use((req: Request, res: Response, next: NextFunction) => {
+  // Allow all origins for Vercel (you can restrict this later)
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  
+  // CRITICAL: PATCH must be included here
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+  
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  
   res.header('Access-Control-Allow-Credentials', 'true');
   
+  // Handle preflight requests
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
+  
   next();
 });
+// =========================================================
 
 // Body parsing middleware - BEFORE routes
 app.use(express.json());
@@ -34,6 +42,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   logger.info('Incoming request', {
     method: req.method,
     path: req.path,
+    origin: req.headers.origin,
     ip: req.ip,
   });
   next();
@@ -54,12 +63,13 @@ app.get('/', (req: Request, res: Response) => {
       signup: 'POST /api/users/signup',
       login: 'POST /api/users/login',
       forgotPassword: 'POST /api/users/forgot-password',
+      updateUserType: 'PATCH /api/users/update-user-type',
       getAllRooms: 'GET /api/rooms',
       addRoom: 'POST /api/rooms',
       updateRoom: 'PUT /api/rooms/:id',
       deleteRoom: 'DELETE /api/rooms/:id',
       getRoomById: 'GET /api/rooms/:id',
-      getUserProfile: 'GET /api/users/me',    // Added endpoint doc
+      getUserProfile: 'GET /api/users/me',
     },
   });
 });

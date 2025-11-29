@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "type": "module",
   "scripts": {
-    "dev": "ts-node server.ts",
+    "dev": "tsx watch server.ts",
     "build": "tsc",
     "start": "node dist/server.js"
   },
@@ -39,17 +39,18 @@
     "winston": "^3.18.3"
   },
   "devDependencies": {
-  "@types/bcrypt": "^6.0.0",
-  "@types/bcryptjs": "^2.4.6",
-  "@types/cors": "^2.8.19",
-  "@types/express": "^5.0.3",
-  "@types/jsonwebtoken": "^9.0.10",
-  "@types/mongoose": "^5.11.96",
-  "@types/multer": "^2.0.0",
-  "@types/node": "^24.8.0",
-  "@types/nodemailer": "^7.0.4",
-  "@types/winston": "^2.4.4",
-  "ts-node": "^10.9.2",
-  "typescript": "^5.9.3"
-}
+    "@types/bcrypt": "^6.0.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/mongoose": "^5.11.96",
+    "@types/multer": "^2.0.0",
+    "@types/node": "^24.8.0",
+    "@types/nodemailer": "^7.0.4",
+    "@types/winston": "^2.4.4",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
 }

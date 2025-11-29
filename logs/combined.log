@@ -386,3 +386,404 @@
 {"level":"info","message":"Database connected successfully","timestamp":"2025-11-22T19:14:57.879Z"}
 {"env":"production","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-22T19:14:57.886Z"}
 {"level":"info","message":"Local: http://localhost:3000","timestamp":"2025-11-22T19:14:57.886Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-28T22:47:37.684Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-28T22:47:37.690Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-28T22:47:38.580Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-28T22:47:38.581Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-28T22:47:38.588Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/","timestamp":"2025-11-28T22:47:54.332Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/favicon.ico","timestamp":"2025-11-28T22:47:54.464Z"}
+{"ip":"::1","level":"warn","message":"Route not found","method":"GET","path":"/favicon.ico","timestamp":"2025-11-28T22:47:54.466Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-28T23:08:29.135Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-28T23:08:29.139Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-28T23:08:30.000Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-28T23:08:30.001Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-28T23:08:30.009Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-28T23:13:57.571Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-28T23:13:57.575Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-28T23:13:58.513Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-28T23:13:58.515Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-28T23:13:58.532Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T11:18:45.248Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T11:18:45.252Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T11:18:46.036Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T11:18:46.039Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T11:18:46.054Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T11:42:28.474Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T11:42:28.478Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T11:42:29.469Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T11:42:29.471Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T11:42:29.482Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T11:48:49.237Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T11:48:49.241Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T11:48:49.949Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T11:48:49.951Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T11:48:49.968Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T11:57:31.113Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T11:57:31.117Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T11:57:33.059Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T11:57:33.060Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T11:57:33.071Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T11:59:12.863Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T11:59:12.869Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T11:59:13.732Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T11:59:13.735Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T11:59:13.744Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"PATCH","origin":"http://localhost:3001","path":"/api/users/update-user-type","timestamp":"2025-11-29T12:00:09.978Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T12:05:48.398Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T12:05:48.402Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T12:05:49.866Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T12:05:49.867Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T12:05:49.875Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"PATCH","origin":"http://localhost:3001","path":"/api/users/update-user-type","timestamp":"2025-11-29T12:06:17.969Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T12:12:24.875Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T12:12:24.880Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T12:12:25.860Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T12:12:25.861Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T12:12:25.869Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T12:13:43.563Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T12:13:43.567Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T12:13:44.696Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T12:13:44.697Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T12:13:44.707Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"PATCH","origin":"http://localhost:3001","path":"/api/users/update-user-type","timestamp":"2025-11-29T12:17:49.888Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"PATCH","origin":"http://localhost:3001","path":"/api/users/update-user-type","timestamp":"2025-11-29T12:18:43.126Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"PATCH","origin":"http://localhost:3001","path":"/api/users/update-user-type","timestamp":"2025-11-29T12:20:42.481Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T12:27:12.408Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T12:27:12.412Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T12:27:13.178Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T12:27:13.179Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T12:27:13.186Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"PATCH","origin":"http://localhost:3001","path":"/api/users/update-user-type","timestamp":"2025-11-29T12:28:07.699Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/rooms","timestamp":"2025-11-29T12:33:57.098Z"}
+{"ip":"::1","level":"warn","message":"Route not found","method":"GET","path":"/rooms","timestamp":"2025-11-29T12:33:57.100Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/users/login","timestamp":"2025-11-29T12:34:13.191Z"}
+{"ip":"::1","level":"warn","message":"Route not found","method":"POST","path":"/users/login","timestamp":"2025-11-29T12:34:13.193Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/rooms","timestamp":"2025-11-29T12:34:44.147Z"}
+{"ip":"::1","level":"warn","message":"Route not found","method":"GET","path":"/rooms","timestamp":"2025-11-29T12:34:44.157Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/rooms","timestamp":"2025-11-29T12:34:44.178Z"}
+{"ip":"::1","level":"warn","message":"Route not found","method":"GET","path":"/rooms","timestamp":"2025-11-29T12:34:44.180Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/rooms","timestamp":"2025-11-29T12:34:47.756Z"}
+{"ip":"::1","level":"warn","message":"Route not found","method":"GET","path":"/rooms","timestamp":"2025-11-29T12:34:47.759Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/rooms","timestamp":"2025-11-29T12:35:26.585Z"}
+{"ip":"::1","level":"warn","message":"Route not found","method":"GET","path":"/rooms","timestamp":"2025-11-29T12:35:26.594Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T12:35:48.067Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T12:35:48.071Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T12:35:48.855Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T12:35:48.857Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T12:35:48.875Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/rooms","timestamp":"2025-11-29T12:36:01.165Z"}
+{"ip":"::1","level":"warn","message":"Route not found","method":"GET","path":"/rooms","timestamp":"2025-11-29T12:36:01.169Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/users/signup","timestamp":"2025-11-29T12:36:24.185Z"}
+{"ip":"::1","level":"warn","message":"Route not found","method":"POST","path":"/users/signup","timestamp":"2025-11-29T12:36:24.187Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/rooms","timestamp":"2025-11-29T13:53:08.686Z"}
+{"ip":"::1","level":"warn","message":"Route not found","method":"GET","path":"/rooms","timestamp":"2025-11-29T13:53:08.690Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/rooms","timestamp":"2025-11-29T13:53:08.697Z"}
+{"ip":"::1","level":"warn","message":"Route not found","method":"GET","path":"/rooms","timestamp":"2025-11-29T13:53:08.719Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/rooms","timestamp":"2025-11-29T13:55:16.833Z"}
+{"ip":"::1","level":"warn","message":"Route not found","method":"GET","path":"/rooms","timestamp":"2025-11-29T13:55:16.843Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T13:57:09.110Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/api/users/login","timestamp":"2025-11-29T13:57:21.959Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"PATCH","origin":"http://localhost:3001","path":"/api/users/update-user-type","timestamp":"2025-11-29T13:57:28.913Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T13:57:33.246Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T13:57:33.260Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/api/users/signup","timestamp":"2025-11-29T13:58:20.427Z"}
+{"environment":"development","level":"error","message":"Error: Server Error","stack":"ValidationError: User validation failed: userType: User type must be either tenant or landlord\n    at Document.invalidate (C:\\Users\\HP\\Downloads\\rosca-be\\node_modules\\mongoose\\lib\\document.js:3219:32)\n    at C:\\Users\\HP\\Downloads\\rosca-be\\node_modules\\mongoose\\lib\\document.js:3012:17\n    at C:\\Users\\HP\\Downloads\\rosca-be\\node_modules\\mongoose\\lib\\schematype.js:1368:9\n    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)","status":500,"timestamp":"2025-11-29T13:58:20.487Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/api/users/signup","timestamp":"2025-11-29T13:58:25.029Z"}
+{"environment":"development","level":"error","message":"Error: Server Error","stack":"ValidationError: User validation failed: userType: User type must be either tenant or landlord\n    at Document.invalidate (C:\\Users\\HP\\Downloads\\rosca-be\\node_modules\\mongoose\\lib\\document.js:3219:32)\n    at C:\\Users\\HP\\Downloads\\rosca-be\\node_modules\\mongoose\\lib\\document.js:3012:17\n    at C:\\Users\\HP\\Downloads\\rosca-be\\node_modules\\mongoose\\lib\\schematype.js:1368:9\n    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)","status":500,"timestamp":"2025-11-29T13:58:25.077Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T14:02:10.868Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T14:02:10.873Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T14:02:11.610Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T14:02:11.612Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T14:02:11.624Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T14:02:16.531Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T14:02:16.535Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T14:02:17.359Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T14:02:17.391Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T14:02:17.447Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T14:02:25.281Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T14:02:25.285Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T14:02:26.029Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T14:02:26.060Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T14:02:26.106Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T14:02:35.575Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T14:02:35.579Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T14:02:36.413Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T14:02:36.415Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T14:02:36.426Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T14:02:40.741Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T14:02:40.748Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T14:02:41.574Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T14:02:41.596Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T14:02:41.608Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T14:02:45.960Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T14:02:45.966Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T14:02:46.817Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T14:02:46.819Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T14:02:46.830Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/api/users/signup","timestamp":"2025-11-29T14:02:52.585Z"}
+{"environment":"development","level":"error","message":"Error: Server Error","stack":"ValidationError: User validation failed: userType: `null` is not a valid enum value for path `userType`.\n    at Document.invalidate (C:\\Users\\HP\\Downloads\\rosca-be\\node_modules\\mongoose\\lib\\document.js:3219:32)\n    at C:\\Users\\HP\\Downloads\\rosca-be\\node_modules\\mongoose\\lib\\document.js:3012:17\n    at C:\\Users\\HP\\Downloads\\rosca-be\\node_modules\\mongoose\\lib\\schematype.js:1368:9\n    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)","status":500,"timestamp":"2025-11-29T14:02:52.663Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T14:03:43.851Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T14:03:43.856Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T14:03:44.667Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T14:03:44.668Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T14:03:44.679Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T14:04:25.366Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T14:04:25.370Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T14:04:26.287Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T14:04:26.289Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T14:04:26.307Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T14:06:04.456Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T14:06:04.460Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T14:06:05.725Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T14:06:05.727Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T14:06:05.737Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T14:06:37.422Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/api/users/signup","timestamp":"2025-11-29T14:07:09.126Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"PATCH","origin":"http://localhost:3001","path":"/api/users/update-user-type","timestamp":"2025-11-29T14:07:20.636Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T14:07:22.823Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T14:07:22.833Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/auth/google/url","timestamp":"2025-11-29T14:13:08.243Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/api/auth/google/callback","timestamp":"2025-11-29T14:13:15.331Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/auth/callback","timestamp":"2025-11-29T14:13:16.038Z"}
+{"ip":"::1","level":"warn","message":"Route not found","method":"GET","path":"/auth/callback","timestamp":"2025-11-29T14:13:16.040Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/favicon.ico","timestamp":"2025-11-29T14:13:16.196Z"}
+{"ip":"::1","level":"warn","message":"Route not found","method":"GET","path":"/favicon.ico","timestamp":"2025-11-29T14:13:16.198Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T14:14:07.546Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/auth/google/url","timestamp":"2025-11-29T14:14:12.615Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/api/auth/google/callback","timestamp":"2025-11-29T14:14:20.096Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/signup","timestamp":"2025-11-29T14:14:20.745Z"}
+{"ip":"::1","level":"warn","message":"Route not found","method":"GET","path":"/signup","timestamp":"2025-11-29T14:14:20.746Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T14:22:47.095Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T14:22:47.101Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T14:22:47.967Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T14:22:47.969Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T14:22:47.981Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T14:22:53.513Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T14:22:53.518Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T14:22:54.501Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T14:22:54.502Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T14:22:54.518Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T14:23:27.424Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T14:23:27.427Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T14:23:28.270Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T14:23:28.272Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T14:23:28.290Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T14:23:37.325Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T14:23:37.330Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T14:23:38.097Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T14:23:38.099Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T14:23:38.113Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T14:24:02.540Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T14:24:02.543Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T14:24:03.336Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T14:24:03.338Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T14:24:03.348Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T14:24:28.015Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/auth/google/url","timestamp":"2025-11-29T14:24:36.805Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/api/auth/google/callback","timestamp":"2025-11-29T14:24:51.871Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T14:27:44.096Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T14:27:44.101Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T14:29:55.717Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T14:29:55.722Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T14:29:56.505Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T14:29:56.506Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T14:29:56.518Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T14:30:57.007Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T14:30:57.010Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T14:30:57.899Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T14:30:57.901Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T14:30:57.913Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T14:31:30.904Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T14:31:30.912Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T14:31:32.085Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T14:31:32.087Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T14:31:32.110Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T14:31:48.078Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T14:31:51.754Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/auth/google/url","timestamp":"2025-11-29T14:31:55.166Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/api/auth/google/callback","timestamp":"2025-11-29T14:32:00.632Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T15:38:44.392Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T15:38:44.395Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T15:38:45.209Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T15:38:45.211Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T15:38:45.230Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T15:39:12.871Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/auth/google/url","timestamp":"2025-11-29T15:39:24.409Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/api/auth/google/callback","timestamp":"2025-11-29T15:39:30.907Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/auth/callback","timestamp":"2025-11-29T15:41:45.224Z"}
+{"ip":"::1","level":"warn","message":"Route not found","method":"GET","path":"/auth/callback","timestamp":"2025-11-29T15:41:45.231Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T15:45:34.063Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T15:45:34.066Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T15:45:34.875Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T15:45:34.878Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T15:45:34.895Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/auth/google/url","timestamp":"2025-11-29T15:46:00.567Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/api/auth/google/callback","timestamp":"2025-11-29T15:46:08.470Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"PATCH","origin":"http://localhost:3001","path":"/api/users/update-user-type","timestamp":"2025-11-29T15:46:20.694Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T15:46:22.914Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T15:46:22.923Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/api/users/login","timestamp":"2025-11-29T15:46:45.762Z"}
+{"environment":"development","level":"error","message":"Error: This account uses Google Sign-In. Please sign in with Google.","stack":"Error: This account uses Google Sign-In. Please sign in with Google.\n    at loginUserLogic (C:\\Users\\HP\\Downloads\\rosca-be\\src\\controllers\\userController.ts:104:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","status":401,"timestamp":"2025-11-29T15:46:45.838Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/api/users/login","timestamp":"2025-11-29T15:46:55.169Z"}
+{"environment":"development","level":"error","message":"Error: This account uses Google Sign-In. Please sign in with Google.","stack":"Error: This account uses Google Sign-In. Please sign in with Google.\n    at loginUserLogic (C:\\Users\\HP\\Downloads\\rosca-be\\src\\controllers\\userController.ts:104:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","status":401,"timestamp":"2025-11-29T15:46:55.246Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/api/users/login","timestamp":"2025-11-29T15:47:17.365Z"}
+{"environment":"development","level":"error","message":"Error: Invalid email or password","stack":"Error: Invalid email or password\n    at loginUserLogic (C:\\Users\\HP\\Downloads\\rosca-be\\src\\controllers\\userController.ts:99:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","status":401,"timestamp":"2025-11-29T15:47:17.447Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/api/users/signup","timestamp":"2025-11-29T15:48:50.645Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"PATCH","origin":"http://localhost:3001","path":"/api/users/update-user-type","timestamp":"2025-11-29T15:48:57.767Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T15:48:59.158Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T15:48:59.168Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/auth/google/url","timestamp":"2025-11-29T15:49:07.747Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/api/auth/google/callback","timestamp":"2025-11-29T15:49:13.622Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"PATCH","origin":"http://localhost:3001","path":"/api/users/update-user-type","timestamp":"2025-11-29T15:49:20.744Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T15:49:22.083Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T15:49:22.088Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/api/users/login","timestamp":"2025-11-29T15:49:51.727Z"}
+{"environment":"development","level":"error","message":"Error: This account uses Google Sign-In. Please sign in with Google.","stack":"Error: This account uses Google Sign-In. Please sign in with Google.\n    at loginUserLogic (C:\\Users\\HP\\Downloads\\rosca-be\\src\\controllers\\userController.ts:104:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","status":401,"timestamp":"2025-11-29T15:49:51.798Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/api/users/login","timestamp":"2025-11-29T15:50:09.206Z"}
+{"environment":"development","level":"error","message":"Error: This account uses Google Sign-In. Please sign in with Google.","stack":"Error: This account uses Google Sign-In. Please sign in with Google.\n    at loginUserLogic (C:\\Users\\HP\\Downloads\\rosca-be\\src\\controllers\\userController.ts:104:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","status":401,"timestamp":"2025-11-29T15:50:09.278Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T15:56:45.137Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T15:56:45.142Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T15:56:46.037Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T15:56:46.039Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T15:56:46.046Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T15:57:19.900Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T15:57:19.904Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T15:57:20.874Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T15:57:20.875Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T15:57:20.885Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T15:57:42.006Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T15:57:42.010Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T15:57:42.823Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T15:57:42.826Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T15:57:42.849Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T15:59:10.414Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T15:59:10.418Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T15:59:11.218Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T15:59:11.220Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T15:59:11.237Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T15:59:22.868Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/auth/google/url","timestamp":"2025-11-29T15:59:28.880Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/api/auth/google/callback","timestamp":"2025-11-29T15:59:34.575Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T15:59:38.798Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/api/users/login","timestamp":"2025-11-29T15:59:48.462Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T15:59:50.739Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/api/users/signup","timestamp":"2025-11-29T16:00:29.944Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"PATCH","origin":"http://localhost:3001","path":"/api/users/update-user-type","timestamp":"2025-11-29T16:00:45.254Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T16:00:46.658Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T16:00:46.679Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/api/users/login","timestamp":"2025-11-29T16:01:15.480Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T16:01:17.790Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T16:09:08.141Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T16:09:30.739Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/auth/google/url","timestamp":"2025-11-29T16:09:38.062Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/api/auth/google/callback","timestamp":"2025-11-29T16:09:51.189Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T16:09:58.891Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/auth/google/url","timestamp":"2025-11-29T16:10:25.598Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/api/auth/google/callback","timestamp":"2025-11-29T16:10:30.873Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T16:10:35.165Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/auth/google/url","timestamp":"2025-11-29T16:10:57.020Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/api/auth/google/callback","timestamp":"2025-11-29T16:11:02.592Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T16:11:06.678Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/api/users/login","timestamp":"2025-11-29T16:12:48.820Z"}
+{"environment":"development","level":"error","message":"Error: Invalid email or password","stack":"Error: Invalid email or password\n    at loginUserLogic (C:\\Users\\HP\\Downloads\\rosca-be\\src\\controllers\\userController.ts:99:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","status":401,"timestamp":"2025-11-29T16:12:48.867Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/api/users/signup","timestamp":"2025-11-29T16:13:06.675Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"PATCH","origin":"http://localhost:3001","path":"/api/users/update-user-type","timestamp":"2025-11-29T16:13:37.219Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"PATCH","origin":"http://localhost:3001","path":"/api/users/update-user-type","timestamp":"2025-11-29T16:13:47.680Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T16:13:49.357Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T16:13:49.373Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T16:14:57.723Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T16:14:57.727Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T16:14:58.487Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T16:14:58.503Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T16:14:58.516Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T16:15:11.377Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T16:15:11.383Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T16:15:12.254Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T16:15:12.256Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T16:15:12.266Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T16:15:32.497Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T16:15:32.502Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T16:15:33.232Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T16:15:33.233Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T16:15:33.241Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T16:15:54.819Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/auth/google/url","timestamp":"2025-11-29T16:16:09.570Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/api/auth/google/callback","timestamp":"2025-11-29T16:16:14.871Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T16:17:03.628Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T16:17:03.631Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T16:17:04.440Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T16:17:04.441Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T16:17:04.453Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T16:17:13.741Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T16:17:13.744Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T16:17:14.453Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T16:17:14.456Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T16:17:14.466Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/auth/google/url","timestamp":"2025-11-29T16:17:20.489Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/api/auth/google/callback","timestamp":"2025-11-29T16:17:33.355Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T16:19:13.025Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T16:19:13.028Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T16:19:13.821Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T16:19:13.823Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T16:19:13.839Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T16:19:33.369Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T16:19:33.372Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T16:19:34.167Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T16:19:34.169Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T16:19:34.180Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/auth/google/url","timestamp":"2025-11-29T16:20:05.281Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/api/auth/google/callback","timestamp":"2025-11-29T16:20:10.911Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T16:23:34.402Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T16:23:34.407Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T16:23:35.272Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T16:23:35.273Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T16:23:35.283Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T16:23:43.235Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T16:23:43.239Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T16:23:43.947Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T16:23:43.949Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T16:23:43.965Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/auth/google/url","timestamp":"2025-11-29T16:23:51.873Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/api/auth/google/callback","timestamp":"2025-11-29T16:23:57.659Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"PATCH","origin":"http://localhost:3001","path":"/api/users/update-user-type","timestamp":"2025-11-29T16:24:10.175Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T16:24:55.823Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/api/users/login","timestamp":"2025-11-29T16:25:42.380Z"}
+{"environment":"development","level":"error","message":"Error: Invalid email or password","stack":"Error: Invalid email or password\n    at loginUserLogic (C:\\Users\\HP\\Downloads\\rosca-be\\src\\controllers\\userController.ts:99:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","status":401,"timestamp":"2025-11-29T16:25:42.479Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/api/users/signup","timestamp":"2025-11-29T16:25:58.293Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"PATCH","origin":"http://localhost:3001","path":"/api/users/update-user-type","timestamp":"2025-11-29T16:26:02.863Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T16:26:04.382Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T16:26:04.399Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"POST","origin":"http://localhost:3001","path":"/api/users/login","timestamp":"2025-11-29T16:26:15.857Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T16:26:18.119Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T16:36:43.051Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T16:36:43.055Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T16:36:43.850Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T16:36:43.851Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T16:36:43.860Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T16:37:09.443Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T16:37:09.450Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T16:37:10.625Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T16:37:10.627Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T16:37:10.638Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T16:37:36.277Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T16:37:36.281Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T16:37:37.045Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T16:37:37.047Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T16:37:37.065Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T16:40:12.521Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T16:40:12.527Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T16:40:13.376Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T16:40:13.377Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T16:40:13.387Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T16:40:50.831Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/auth/google/url","timestamp":"2025-11-29T16:41:03.099Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","path":"/api/auth/google/callback","timestamp":"2025-11-29T16:41:09.738Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"PATCH","origin":"http://localhost:3001","path":"/api/users/update-user-type","timestamp":"2025-11-29T16:41:26.067Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T16:41:29.809Z"}
+{"ip":"::1","level":"info","message":"Incoming request","method":"GET","origin":"http://localhost:3001","path":"/api/rooms","timestamp":"2025-11-29T16:41:29.815Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-11-29T16:55:10.318Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-11-29T16:55:10.322Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T16:55:11.065Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T16:55:11.067Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T16:55:11.080Z"}
