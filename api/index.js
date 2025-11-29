@@ -1,6 +1,6 @@
 import app from '../dist/app.js';
-import connectDB from '../dist/src/utils/db.js';
-import config from '../dist/src/config/config.js';
+import connectDB from '../dist/utils/db.js';      // ← CHANGED: Removed /src/
+import config from '../dist/config/config.js';    // ← CHANGED: Removed /src/
 
 let dbConnected = false;
 let dbPromise = null;
@@ -11,10 +11,10 @@ export default async function handler(req, res) {
     dbPromise = connectDB(config.db.uri)
       .then(() => {
         dbConnected = true;
-        console.log('Database connected successfully');
+        console.log('✅ Database connected successfully');
       })
       .catch(err => {
-        console.error('Database connection failed:', err);
+        console.error('❌ Database connection failed:', err);
         dbPromise = null; // Reset to retry on next request
         throw err;
       });
