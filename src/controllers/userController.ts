@@ -150,7 +150,16 @@ export const loginUser = asyncWrapper(loginUserLogic);
 // Update user type
 const updateUserTypeLogic = async (req: Request, res: Response) => {
   const { userType } = req.body;
-  const userId = req.user?.id;
+  
+  // Get userId from the authenticated user with proper type casting
+  const user = req.user as { id: string; userId: string; email: string } | undefined;
+  const userId = user?.userId || user?.id;
+
+  console.log('🔍 Update user type request:', { 
+    userId, 
+    userType,
+    userObject: req.user 
+  });
 
   if (!userId) {
     throw new ApiError(HTTP_STATUS_CODE.UNAUTHORIZED, 'User not authenticated');
@@ -170,6 +179,11 @@ const updateUserTypeLogic = async (req: Request, res: Response) => {
   if (!updatedUser) {
     throw new ApiError(HTTP_STATUS_CODE.NOT_FOUND, 'User not found');
   }
+
+  console.log('✅ User type updated successfully:', {
+    userId: updatedUser._id,
+    userType: updatedUser.userType
+  });
 
   sendResponse(res, HTTP_STATUS_CODE.OK, {
     success: true,
