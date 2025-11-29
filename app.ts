@@ -23,8 +23,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
   // Handle preflight OPTIONS requests immediately
   if (req.method === 'OPTIONS') {
-    console.log('✅ Handling OPTIONS preflight for:', req.path);
-    return res.status(204).end(); // Changed to 204 No Content
+    console.log('✅ OPTIONS preflight handled for:', req.path);
+    return res.status(204).end();
   }
 
   next();
@@ -35,7 +35,20 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Logging middleware - AFTER CORS
+// 🔍 DEBUG MIDDLEWARE - Log ALL requests
+app.use((req: Request, res: Response, next: NextFunction) => {
+  console.log('🔍 INCOMING REQUEST:', {
+    method: req.method,
+    path: req.path,
+    url: req.url,
+    contentType: req.headers['content-type'],
+    hasAuth: !!req.headers.authorization,
+    body: req.body
+  });
+  next();
+});
+
+// Logging middleware
 app.use((req: Request, res: Response, next: NextFunction) => {
   logger.info('Incoming request', {
     method: req.method,
@@ -74,6 +87,11 @@ app.get('/', (req: Request, res: Response) => {
 
 // 404 Handler - BEFORE error handler
 app.use((req: Request, res: Response) => {
+  console.log('❌ 404 - Route not found:', {
+    method: req.method,
+    path: req.path,
+    url: req.url
+  });
   logger.warn('Route not found', {
     method: req.method,
     path: req.path,
