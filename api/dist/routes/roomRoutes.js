@@ -1,0 +1,10 @@
+import { Router } from 'express';
+import { upload } from '../middleware/upload.js';
+import { getAllRooms, addRoom, updateRoom, deleteRoom, getRoomById, } from '../controllers/roomController.js';
+const router = Router();
+router.get('/', getAllRooms);
+router.post('/', upload.array('images', 5), addRoom);
+router.get('/:id', getRoomById);
+router.put('/:id', updateRoom);
+router.delete('/:id', deleteRoom);
+export default router;
