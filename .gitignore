@@ -25,7 +25,3 @@ coverage
 uploads/
 ```
 
-**Remove these lines:**
-```
-/dist
-/build
