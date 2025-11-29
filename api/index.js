@@ -19,32 +19,45 @@ export default async function handler(req, res) {
   }
   // =====================================================
 
-  // Database connection
-  if (!dbConnected && !dbPromise) {
-    dbPromise = connectDB(config.db.uri)
-      .then(() => {
-        dbConnected = true;
-        console.log('✅ Database connected successfully');
-      })
-      .catch(err => {
-        console.error('❌ Database connection failed:', err);
-        dbPromise = null;
-        throw err;
-      });
-  }
+  // Database connection with singleton pattern
+  if (!dbConnected) {
+    if (!dbPromise) {
+      console.log('🔄 Initiating database connection...');
+      dbPromise = connectDB(config.db.uri)
+        .then(() => {
+          dbConnected = true;
+          dbPromise = null;
+          console.log('✅ Database connected successfully');
+        })
+        .catch(err => {
+          console.error('❌ Database connection failed:', err);
+          dbPromise = null;
+          throw err;
+        });
+    }
 
-  if (dbPromise && !dbConnected) {
+    // Wait for connection to complete
     try {
       await dbPromise;
     } catch (error) {
-      return res.status(500).json({
+      console.error('❌ DB connection error in handler:', error);
+      return res.status(503).json({
         success: false,
-        message: 'Database connection failed',
-        error: error.message
+        message: 'Database unavailable',
+        error: process.env.NODE_ENV === 'development' ? error.message : 'Service temporarily unavailable'
       });
     }
   }
 
   // Pass to Express app
-  return app(req, res);
+  try {
+    return app(req, res);
+  } catch (error) {
+    console.error('❌ Express app error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+      error: process.env.NODE_ENV === 'development' ? error.message : 'Something went wrong'
+    });
+  }
 }

@@ -4,11 +4,10 @@
   "description": "RentalRooms Backend",
   "main": "dist/server.js",
   "type": "module",
-  
-  
   "scripts": {
     "build": "tsc",
-    "vercel-build": "tsc && node copy-build.js"
+    "dev": "tsx watch server.ts",
+    "start": "node dist/server.js"
   },
   "engines": {
     "node": ">=18.x"
