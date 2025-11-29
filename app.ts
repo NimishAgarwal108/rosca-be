@@ -12,32 +12,30 @@ const sendResponse = (res: Response, statusCode: number, responseObj: object) =>
   res.status(statusCode).json(responseObj);
 };
 
-// ============ CORS MIDDLEWARE - MUST BE FIRST ============
+// ============ CORS MIDDLEWARE - ABSOLUTELY FIRST ============
 app.use((req: Request, res: Response, next: NextFunction) => {
-  // Allow all origins for Vercel (you can restrict this later)
-  res.header('Access-Control-Allow-Origin', '*');
-  
-  // CRITICAL: PATCH must be included here
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
-  
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
-  
-  res.header('Access-Control-Allow-Credentials', 'true');
-  
-  // Handle preflight requests
+  // Set CORS headers for ALL requests
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Max-Age', '86400');
+
+  // Handle preflight OPTIONS requests immediately
   if (req.method === 'OPTIONS') {
-    return res.status(200).end();
+    console.log('✅ Handling OPTIONS preflight for:', req.path);
+    return res.status(204).end(); // Changed to 204 No Content
   }
-  
+
   next();
 });
 // =========================================================
 
-// Body parsing middleware - BEFORE routes
+// Body parsing middleware - AFTER CORS
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Logging middleware
+// Logging middleware - AFTER CORS
 app.use((req: Request, res: Response, next: NextFunction) => {
   logger.info('Incoming request', {
     method: req.method,
@@ -49,12 +47,12 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // Route mounting
-app.use('/api/users', userRoutes);         // user routes mounted at /api/users
+app.use('/api/users', userRoutes);
 app.use('/api/rooms', roomRoutes);
 app.use('/api', googleAuthRoutes);
 app.use('/uploads', express.static('uploads'));
 
-// Root endpoint with API documentation / status
+// Root endpoint
 app.get('/', (req: Request, res: Response) => {
   sendResponse(res, HTTP_STATUS_CODE.OK, {
     success: true,
@@ -74,7 +72,7 @@ app.get('/', (req: Request, res: Response) => {
   });
 });
 
-// 404 Handler for unknown routes
+// 404 Handler - BEFORE error handler
 app.use((req: Request, res: Response) => {
   logger.warn('Route not found', {
     method: req.method,
@@ -87,7 +85,7 @@ app.use((req: Request, res: Response) => {
   });
 });
 
-// Global error handler
+// Global error handler - LAST
 app.use(errorHandler);
 
 export default app;
