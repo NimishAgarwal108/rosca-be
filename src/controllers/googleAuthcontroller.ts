@@ -48,11 +48,15 @@ export const googleOAuthHandler = asyncWrapper(
           googleId: googleUser.id,
           profilePicture: googleUser.picture,
           isVerified: true,
+          userType: null, // ← IMPORTANT: New Google users need to select type
           // NO password field - this is a Google-only account
         });
         console.log('✅ New Google user created:', user._id);
+        console.log('✅ User type set to null - needs selection');
       } else {
         console.log('✅ Existing user found:', user._id);
+        console.log('✅ Existing user type:', user.userType || 'null');
+        
         // Link Google account to existing user if not already linked
         if (!user.googleId) {
           user.googleId = googleUser.id;
@@ -76,9 +80,11 @@ export const googleOAuthHandler = asyncWrapper(
         expiresIn,
       };
 
+      // IMPORTANT: Include both userId and id for compatibility
       const token = jwt.sign(
         {
           userId: user._id,
+          id: user._id, // Include both fields for compatibility
           email: user.email,
           firstName: user.firstName,
           lastName: user.lastName,
@@ -88,26 +94,15 @@ export const googleOAuthHandler = asyncWrapper(
       );
       console.log('✅ JWT token generated');
 
-      // Prepare user data to send in URL
-      const userData = {
-        id: user._id.toString(),
-        firstName: user.firstName,
-        lastName: user.lastName || '',
-        email: user.email,
-        profilePicture: user.profilePicture || null,
-        isVerified: user.isVerified,
-        userType: user.userType || null,
-      };
-
-      // Encode user data as URL parameter
-      const userDataEncoded = encodeURIComponent(JSON.stringify(userData));
-
       const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3001';
-      const redirectUrl = `${frontendUrl}/auth/callback?token=${token}&user=${userDataEncoded}`;
       
-      console.log('✅ Redirecting to frontend:', redirectUrl.substring(0, 100) + '...');
+      // UPDATED: Only send token, frontend will fetch user data from /users/me
+      const redirectUrl = `${frontendUrl}/auth/callback?token=${token}`;
       
-      // Redirect with BOTH token and user data
+      console.log('✅ Redirecting to frontend:', redirectUrl);
+      console.log('✅ User will be redirected based on userType:', user.userType || 'null (needs selection)');
+      
+      // Redirect with token only - frontend will call /users/me endpoint
       res.redirect(redirectUrl);
       
     } catch (error: any) {
