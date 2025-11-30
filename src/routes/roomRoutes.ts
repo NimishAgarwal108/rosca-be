@@ -6,28 +6,36 @@ import {
   updateRoom,
   deleteRoom,
   getRoomById,
-  getRoomsByUserId, // NEW
+  getRoomsByUserId,
 } from '../controllers/roomController.js';
-import { authenticateToken } from '../middleware/authMiddleware.js'; // Import auth middleware
+import { authenticateToken } from '../middleware/authMiddleware.js';
 
 const router = Router();
 
+// ⚠️ IMPORTANT: Order matters! Specific routes BEFORE dynamic routes
+
 // Public routes
 router.get('/', getAllRooms);
-// NEW: Get current user's rooms
-router.get('/user/my-rooms', authenticateToken, getRoomsByUserId);
-router.get('/:id', getRoomById);
 
 // Protected routes (require authentication)
+// NEW: Get current user's rooms - MUST be before /:id route
+router.get('/user/my-rooms', authenticateToken, getRoomsByUserId);
+
+// Dynamic route - must be AFTER specific routes
+router.get('/:id', getRoomById);
+
+// Create room (protected)
 router.post(
   '/',
-  authenticateToken, // NEW: Require authentication
-  upload.array('images', 5), 
+  authenticateToken,
+  upload.array('images', 5),
   addRoom
 );
 
-router.put('/:id', authenticateToken, updateRoom); // NEW: Protect update
-router.delete('/:id', authenticateToken, deleteRoom); // NEW: Protect delete
+// Update room (protected)
+router.put('/:id', authenticateToken, updateRoom);
 
+// Delete room (protected)
+router.delete('/:id', authenticateToken, deleteRoom);
 
 export default router;

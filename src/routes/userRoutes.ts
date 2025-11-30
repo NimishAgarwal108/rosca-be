@@ -1,7 +1,8 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { Request, Response } from 'express';
 import * as userController from '../controllers/userController.js';
 import { validateRequest } from '../middleware/validateRequest.js';
 import { upload } from '../middleware/upload.js';
+import { authenticateToken } from '../middleware/authMiddleware.js';
 import { 
   signupSchema, 
   loginSchema,
@@ -9,54 +10,9 @@ import {
   verifyOtpSchema,
   resetPasswordSchema,
 } from '../validation/userValidation.js';
-import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
 
 const router = express.Router();
-
-// JWT authentication middleware
-const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-
-  if (!token) {
-    return res.status(401).json({ 
-      success: false,
-      message: 'Access token required',
-      tokenError: true
-    });
-  }
-
-  const jwtSecret = process.env.JWT_SECRET;
-  if (!jwtSecret) {
-    console.error('❌ JWT_SECRET environment variable is not defined');
-    return res.status(500).json({ 
-      success: false,
-      message: 'Internal server error' 
-    });
-  }
-
-  jwt.verify(token, jwtSecret, (err, decoded) => {
-    if (err) {
-      console.error('Token verification failed:', err.message);
-      return res.status(403).json({ 
-        success: false,
-        message: 'Invalid or expired token. Please login again.',
-        tokenError: true
-      });
-    }
-    
-    const payload = decoded as any;
-    
-    (req as any).user = {
-      userId: payload.userId || payload.id || '',
-      id: payload.id || payload.userId || '',
-      email: payload.email || ''
-    };
-    
-    next();
-  });
-};
 
 // ==================== PUBLIC ROUTES ====================
 
@@ -113,11 +69,11 @@ router.get('/me', authenticateToken, async (req: Request, res: Response) => {
 // Update user type
 router.patch('/update-user-type', authenticateToken, userController.updateUserType);
 
-// NEW: Upload/Update Profile Picture
+// Upload/Update Profile Picture
 router.post(
   '/upload-profile-picture',
   authenticateToken,
-  upload.single('profilePicture'), // Accept single image file named 'profilePicture'
+  upload.single('profilePicture'),
   userController.uploadProfilePicture
 );
 
