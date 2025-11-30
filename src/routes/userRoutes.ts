@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import * as userController from '../controllers/userController.js';
 import { validateRequest } from '../middleware/validateRequest.js';
+import { upload } from '../middleware/upload.js';
 import { 
   signupSchema, 
   loginSchema,
@@ -111,5 +112,13 @@ router.get('/me', authenticateToken, async (req: Request, res: Response) => {
 
 // Update user type
 router.patch('/update-user-type', authenticateToken, userController.updateUserType);
+
+// NEW: Upload/Update Profile Picture
+router.post(
+  '/upload-profile-picture',
+  authenticateToken,
+  upload.single('profilePicture'), // Accept single image file named 'profilePicture'
+  userController.uploadProfilePicture
+);
 
 export default router;

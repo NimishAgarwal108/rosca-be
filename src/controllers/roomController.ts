@@ -18,6 +18,17 @@ const addRoomLogic = async (req: Request, res: Response) => {
   console.log('req.body:', req.body);
   console.log('req.files:', req.files);
 
+  // Extract userId from authenticated user
+  const user = (req as any).user;
+  const userId = user?.userId || user?.id;
+
+  if (!userId) {
+    throw new ApiError(
+      HTTP_STATUS_CODE.UNAUTHORIZED,
+      'User not authenticated. Cannot add room without user ID'
+    );
+  }
+
   // Cloudinary URLs are in file.path (full URLs)
   const imageUrls = req.files
     ? Array.isArray(req.files)
@@ -56,6 +67,7 @@ const addRoomLogic = async (req: Request, res: Response) => {
 
   // Defensive trimming and proper type conversion for required fields
   const payload = {
+    userId: userId, // NEW: Add userId to payload
     ownerName: ownerName?.trim() || undefined,
     roomTitle: roomTitle?.trim() || undefined,
     location: location?.trim() || undefined,
@@ -98,3 +110,17 @@ const getRoomByIdLogic = async (req: Request, res: Response) => {
   sendResponse(res, HTTP_STATUS_CODE.OK, { success: true, data: room });
 };
 export const getRoomById = asyncWrapper(getRoomByIdLogic);
+
+// NEW: Get rooms by user ID
+const getRoomsByUserIdLogic = async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  const userId = user?.userId || user?.id;
+
+  if (!userId) {
+    throw new ApiError(HTTP_STATUS_CODE.UNAUTHORIZED, 'User not authenticated');
+  }
+
+  const rooms = await roomService.getRoomsByUserId(userId);
+  sendResponse(res, HTTP_STATUS_CODE.OK, { success: true, data: rooms });
+};
+export const getRoomsByUserId = asyncWrapper(getRoomsByUserIdLogic);

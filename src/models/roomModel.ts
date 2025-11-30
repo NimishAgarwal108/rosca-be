@@ -1,6 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
 export interface RoomDocument extends Document {
+  userId: Schema.Types.ObjectId; // NEW: Link room to user
   ownerName: string;
   roomTitle: string;
   location: string;
@@ -11,13 +12,19 @@ export interface RoomDocument extends Document {
   description?: string;
   ownerRequirements?: string;
   contactNumber: string;
-  images: string[]; // store image URLs or file paths (jpeg, png, webp)
-  video?: string; // store single video URL or file path (mp4)
-  amenities: string[]; // multiple selection from wifi, parking, AC, geysers, tv, fridge, kitchen, laundry
+  images: string[];
+  video?: string;
+  amenities: string[];
 }
 
 const roomSchema = new Schema<RoomDocument>(
   {
+    userId: {
+      // NEW: Reference to User who created this room
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: [true, 'User ID is required'],
+    },
     ownerName: { type: String, required: true },
     roomTitle: { type: String, required: true },
     location: { type: String, required: true },
@@ -36,7 +43,6 @@ const roomSchema = new Schema<RoomDocument>(
       type: [String],
       validate: {
         validator: function(arr: string[]) {
-          // validate extensions for images
           return arr.every(img => /\.(jpe?g|png|webp)$/i.test(img));
         },
         message: 'Images must be JPEG, PNG, or WEBP formats'
@@ -47,7 +53,6 @@ const roomSchema = new Schema<RoomDocument>(
       type: String,
       validate: {
         validator: function(v: string) {
-          // validate extension for video
           return !v || /\.(mp4)$/i.test(v);
         },
         message: 'Video must be MP4 format'

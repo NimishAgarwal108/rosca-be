@@ -27,10 +27,24 @@ export const createUser = async (userData: {
   return user;
 };
 
+/**
+ * Update user type
+ */
 export const updateUserType = async (userId: string, userType: string) => {
   return await User.findByIdAndUpdate(
     userId,
     { userType },
+    { new: true, runValidators: true }
+  );
+};
+
+/**
+ * Update profile picture - NEW FUNCTION
+ */
+export const updateProfilePicture = async (userId: string, profilePictureUrl: string) => {
+  return await User.findByIdAndUpdate(
+    userId,
+    { profilePicture: profilePictureUrl },
     { new: true, runValidators: true }
   );
 };
