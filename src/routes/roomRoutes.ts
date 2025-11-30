@@ -14,6 +14,8 @@ const router = Router();
 
 // Public routes
 router.get('/', getAllRooms);
+// NEW: Get current user's rooms
+router.get('/user/my-rooms', authenticateToken, getRoomsByUserId);
 router.get('/:id', getRoomById);
 
 // Protected routes (require authentication)
@@ -27,7 +29,5 @@ router.post(
 router.put('/:id', authenticateToken, updateRoom); // NEW: Protect update
 router.delete('/:id', authenticateToken, deleteRoom); // NEW: Protect delete
 
-// NEW: Get current user's rooms
-router.get('/user/my-rooms', authenticateToken, getRoomsByUserId);
 
 export default router;
