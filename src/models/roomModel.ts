@@ -12,9 +12,9 @@ export interface RoomDocument extends Document {
   description?: string;
   ownerRequirements?: string;
   contactNumber: string;
-  images: string[];
-  video?: string;
-  amenities: string[];
+  images: string[]; // store image URLs or file paths (jpeg, png, webp)
+  video?: string; // store single video URL or file path (mp4)
+  amenities: string[]; // multiple selection from wifi, parking, AC, geysers, tv, fridge, kitchen, laundry
 }
 
 const roomSchema = new Schema<RoomDocument>(
@@ -43,6 +43,7 @@ const roomSchema = new Schema<RoomDocument>(
       type: [String],
       validate: {
         validator: function(arr: string[]) {
+          // validate extensions for images
           return arr.every(img => /\.(jpe?g|png|webp)$/i.test(img));
         },
         message: 'Images must be JPEG, PNG, or WEBP formats'
@@ -53,6 +54,7 @@ const roomSchema = new Schema<RoomDocument>(
       type: String,
       validate: {
         validator: function(v: string) {
+          // validate extension for video
           return !v || /\.(mp4)$/i.test(v);
         },
         message: 'Video must be MP4 format'
