@@ -4,8 +4,11 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
 interface JwtPayload {
+  userId: string;  // ✅ Add this
   id: string;
   email: string;
+  firstName?: string;  // ✅ Optional - your token has this too
+  lastName?: string;   // ✅ Optional - your token has this too
 }
 
 // Extend Express Request type to include user
@@ -43,6 +46,13 @@ export const authMiddleware = async (
 
     // Attach user info to request
     req.user = decoded;
+    
+    // ✅ Add debug log to verify
+    console.log('🔐 Auth middleware - decoded user:', {
+      id: decoded.id,
+      userId: decoded.userId,
+      email: decoded.email
+    });
     
     next();
   } catch (error: unknown) {
