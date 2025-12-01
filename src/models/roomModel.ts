@@ -1,7 +1,7 @@
 import { Schema, model, Document, Types } from 'mongoose'; // ✅ Added Types import
 
 export interface RoomDocument extends Document {
-  userId: Types.ObjectId; // ✅ FIXED: Changed from Schema.Types.ObjectId to Types.ObjectId
+ userId: Types.ObjectId | string;
   ownerName: string;
   roomTitle: string;
   location: string;

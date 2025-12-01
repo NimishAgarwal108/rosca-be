@@ -111,7 +111,7 @@ const addRoomLogic = async (req: Request, res: Response) => {
     // ✅ FIXED: Use Types.ObjectId instead of Schema.Types.ObjectId
     let userId;
     try {
-      userId = new Types.ObjectId(req.user.id); // ✅ FIXED - No more Mongoose warning
+       userId = req.user.id;// ✅ FIXED - No more Mongoose warning
       console.log('✅ ObjectId created successfully:', userId);
     } catch (objIdError: any) {
       console.error('❌ Failed to create ObjectId:', objIdError);
