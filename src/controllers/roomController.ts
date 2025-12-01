@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Schema } from 'mongoose'; // ✅ Import Schema for ObjectId type
+import { Schema, Types } from 'mongoose'; // ✅ Added Types import
 import * as roomService from '../services/roomService.js';
 import { ApiError } from '../utils/apiError.js';
 import { asyncWrapper } from '../utils/asyncWrapper.js';
@@ -48,101 +48,101 @@ const addRoomLogic = async (req: Request, res: Response) => {
       throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, `Invalid user ID format. Expected 24-character hex string, got: ${req.user.id}`);
     }
 
-  // Cloudinary URLs are in file.path (full URLs)
-  const imageUrls = req.files
-    ? Array.isArray(req.files)
-      ? req.files.map((file: any) => file.path) // file.path contains full Cloudinary URL
-      : []
-    : [];
+    // Cloudinary URLs are in file.path (full URLs)
+    const imageUrls = req.files
+      ? Array.isArray(req.files)
+        ? req.files.map((file: any) => file.path) // file.path contains full Cloudinary URL
+        : []
+      : [];
 
-  console.log('📸 Image URLs:', imageUrls);
-  console.log('📸 Number of images:', imageUrls.length);
+    console.log('📸 Image URLs:', imageUrls);
+    console.log('📸 Number of images:', imageUrls.length);
 
-  const {
-    ownerName,
-    roomTitle,
-    location,
-    price,
-    beds,
-    bathrooms,
-    type,
-    contactNumber,
-    description,
-    ownerRequirements,
-    amenities,
-  } = req.body;
+    const {
+      ownerName,
+      roomTitle,
+      location,
+      price,
+      beds,
+      bathrooms,
+      type,
+      contactNumber,
+      description,
+      ownerRequirements,
+      amenities,
+    } = req.body;
 
-  // Normalize amenities into string array whatever the input format
-  let amenitiesArray: string[] = [];
-  if (amenities) {
-    if (typeof amenities === 'string') {
-      try {
-        amenitiesArray = JSON.parse(amenities);
-        if (!Array.isArray(amenitiesArray)) amenitiesArray = [amenitiesArray];
-      } catch {
-        amenitiesArray = amenities.split(',').map((a: string) => a.trim());
+    // Normalize amenities into string array whatever the input format
+    let amenitiesArray: string[] = [];
+    if (amenities) {
+      if (typeof amenities === 'string') {
+        try {
+          amenitiesArray = JSON.parse(amenities);
+          if (!Array.isArray(amenitiesArray)) amenitiesArray = [amenitiesArray];
+        } catch {
+          amenitiesArray = amenities.split(',').map((a: string) => a.trim());
+        }
+      } else if (Array.isArray(amenities)) {
+        amenitiesArray = amenities;
       }
-    } else if (Array.isArray(amenities)) {
-      amenitiesArray = amenities;
     }
-  }
-  
-  console.log('🎯 Amenities processed:', amenitiesArray);
-  
-  // ✅ Validate required fields before creating payload
-  const validationErrors: string[] = [];
-  
-  if (!ownerName?.trim()) validationErrors.push('ownerName is required');
-  if (!roomTitle?.trim()) validationErrors.push('roomTitle is required');
-  if (!location?.trim()) validationErrors.push('location is required');
-  if (!price || isNaN(Number(price))) validationErrors.push('valid price is required');
-  if (!beds || isNaN(Number(beds))) validationErrors.push('valid beds count is required');
-  if (!bathrooms || isNaN(Number(bathrooms))) validationErrors.push('valid bathrooms count is required');
-  if (!type) validationErrors.push('type is required');
-  if (!contactNumber?.trim()) validationErrors.push('contactNumber is required');
-  if (!amenitiesArray || amenitiesArray.length === 0) validationErrors.push('at least one amenity is required');
-  if (!imageUrls || imageUrls.length === 0) validationErrors.push('at least one image is required');
-  
-  if (validationErrors.length > 0) {
-    console.error('❌ Validation errors:', validationErrors);
-    throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, `Validation failed: ${validationErrors.join(', ')}`);
-  }
+    
+    console.log('🎯 Amenities processed:', amenitiesArray);
+    
+    // ✅ Validate required fields before creating payload
+    const validationErrors: string[] = [];
+    
+    if (!ownerName?.trim()) validationErrors.push('ownerName is required');
+    if (!roomTitle?.trim()) validationErrors.push('roomTitle is required');
+    if (!location?.trim()) validationErrors.push('location is required');
+    if (!price || isNaN(Number(price))) validationErrors.push('valid price is required');
+    if (!beds || isNaN(Number(beds))) validationErrors.push('valid beds count is required');
+    if (!bathrooms || isNaN(Number(bathrooms))) validationErrors.push('valid bathrooms count is required');
+    if (!type) validationErrors.push('type is required');
+    if (!contactNumber?.trim()) validationErrors.push('contactNumber is required');
+    if (!amenitiesArray || amenitiesArray.length === 0) validationErrors.push('at least one amenity is required');
+    if (!imageUrls || imageUrls.length === 0) validationErrors.push('at least one image is required');
+    
+    if (validationErrors.length > 0) {
+      console.error('❌ Validation errors:', validationErrors);
+      throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, `Validation failed: ${validationErrors.join(', ')}`);
+    }
 
-  // Defensive trimming and proper type conversion for required fields
-  let userId;
-  try {
-    userId = new Schema.Types.ObjectId(req.user.id);
-    console.log('✅ ObjectId created successfully:', userId);
-  } catch (objIdError: any) {
-    console.error('❌ Failed to create ObjectId:', objIdError);
-    throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, `Invalid user ID: ${objIdError.message}`);
-  }
-  
-  const payload = {
-    userId: userId,
-    ownerName: ownerName.trim(),
-    roomTitle: roomTitle.trim(),
-    location: location.trim(),
-    price: Number(price),
-    beds: Number(beds),
-    bathrooms: Number(bathrooms),
-    type: type,
-    contactNumber: contactNumber.trim(),
-    description: description?.trim() || '',
-    ownerRequirements: ownerRequirements?.trim() || '',
-    amenities: amenitiesArray,
-    images: imageUrls,
-  };
+    // ✅ FIXED: Use Types.ObjectId instead of Schema.Types.ObjectId
+    let userId;
+    try {
+      userId = new Types.ObjectId(req.user.id); // ✅ FIXED - No more Mongoose warning
+      console.log('✅ ObjectId created successfully:', userId);
+    } catch (objIdError: any) {
+      console.error('❌ Failed to create ObjectId:', objIdError);
+      throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, `Invalid user ID: ${objIdError.message}`);
+    }
+    
+    const payload = {
+      userId: userId,
+      ownerName: ownerName.trim(),
+      roomTitle: roomTitle.trim(),
+      location: location.trim(),
+      price: Number(price),
+      beds: Number(beds),
+      bathrooms: Number(bathrooms),
+      type: type,
+      contactNumber: contactNumber.trim(),
+      description: description?.trim() || '',
+      ownerRequirements: ownerRequirements?.trim() || '',
+      amenities: amenitiesArray,
+      images: imageUrls,
+    };
 
-  console.log('📤 ═══════════════════════════════════════');
-  console.log('📤 Sending payload to service:');
-  console.log(JSON.stringify(payload, null, 2));
-  console.log('📤 ═══════════════════════════════════════');
+    console.log('📤 ═══════════════════════════════════════');
+    console.log('📤 Sending payload to service:');
+    console.log(JSON.stringify(payload, null, 2));
+    console.log('📤 ═══════════════════════════════════════');
 
-  const room = await roomService.addRoom(payload);
-  
-  console.log('✅ Room created successfully:', room);
-  sendResponse(res, HTTP_STATUS_CODE.CREATED, { success: true, data: room });
+    const room = await roomService.addRoom(payload);
+    
+    console.log('✅ Room created successfully:', room);
+    sendResponse(res, HTTP_STATUS_CODE.CREATED, { success: true, data: room });
   } catch (error: any) {
     console.error('❌ ═══════════════════════════════════════');
     console.error('❌ Error in addRoomLogic:');
@@ -167,7 +167,7 @@ const updateRoomLogic = async (req: Request, res: Response) => {
   }
   
   if (req.user && existingRoom.userId.toString() !== req.user.id) {
-    throw new ApiError(403, 'You can only update your own rooms'); // ✅ FIX: Use 403 directly
+    throw new ApiError(403, 'You can only update your own rooms');
   }
   
   const room = await roomService.updateRoom(id, req.body);
@@ -186,7 +186,7 @@ const deleteRoomLogic = async (req: Request, res: Response) => {
   }
   
   if (req.user && existingRoom.userId.toString() !== req.user.id) {
-    throw new ApiError(403, 'You can only delete your own rooms'); // ✅ FIX: Use 403 directly
+    throw new ApiError(403, 'You can only delete your own rooms');
   }
   
   const room = await roomService.deleteRoom(id);

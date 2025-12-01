@@ -787,3 +787,18 @@
 {"level":"info","message":"MongoDB connected successfully","timestamp":"2025-11-29T16:55:11.065Z"}
 {"level":"info","message":"Database connected successfully","timestamp":"2025-11-29T16:55:11.067Z"}
 {"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-11-29T16:55:11.080Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-12-01T11:39:41.239Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-12-01T11:39:41.243Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-12-01T11:39:42.063Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-12-01T11:39:42.066Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-12-01T11:39:42.085Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-12-01T11:54:31.989Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-12-01T11:54:31.992Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-12-01T11:54:33.040Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-12-01T11:54:33.042Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-12-01T11:54:33.049Z"}
+{"env":"development","level":"info","message":"Starting server...","timestamp":"2025-12-01T11:56:13.402Z"}
+{"level":"info","message":"Connecting to database...","timestamp":"2025-12-01T11:56:13.407Z"}
+{"level":"info","message":"MongoDB connected successfully","timestamp":"2025-12-01T11:56:14.264Z"}
+{"level":"info","message":"Database connected successfully","timestamp":"2025-12-01T11:56:14.267Z"}
+{"env":"development","level":"info","localUrl":"http://localhost:3000","message":"Server is running on port 3000","port":3000,"timestamp":"2025-12-01T11:56:14.285Z"}

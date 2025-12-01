@@ -1,7 +1,7 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, Types } from 'mongoose'; // ✅ Added Types import
 
 export interface RoomDocument extends Document {
-  userId: Schema.Types.ObjectId; // ✅ Link to User who created the room
+  userId: Types.ObjectId; // ✅ FIXED: Changed from Schema.Types.ObjectId to Types.ObjectId
   ownerName: string;
   roomTitle: string;
   location: string;
@@ -21,7 +21,7 @@ export interface RoomDocument extends Document {
 
 const roomSchema = new Schema({
   userId: { 
-    type: Schema.Types.ObjectId, 
+    type: Schema.Types.ObjectId, // ✅ Schema.Types.ObjectId is correct for schema definition
     ref: 'User', 
     required: true 
   },

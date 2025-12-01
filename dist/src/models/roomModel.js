@@ -1,10 +1,9 @@
 import { Schema, model } from 'mongoose';
 const roomSchema = new Schema({
     userId: {
-        // NEW: Reference to User who created this room
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: [true, 'User ID is required'],
+        required: true
     },
     ownerName: { type: String, required: true },
     roomTitle: { type: String, required: true },
@@ -24,10 +23,17 @@ const roomSchema = new Schema({
         type: [String],
         validate: {
             validator: function (arr) {
-                // validate extensions for images
-                return arr.every(img => /\.(jpe?g|png|webp)$/i.test(img));
+                // Allow either URLs (Cloudinary) or file extensions (local)
+                return arr.every(img => {
+                    try {
+                        return img.startsWith('http') || /\.(jpe?g|png|webp)$/i.test(img);
+                    }
+                    catch {
+                        return false;
+                    }
+                });
             },
-            message: 'Images must be JPEG, PNG, or WEBP formats'
+            message: 'Images must be valid URLs or image files (JPEG, PNG, WEBP)'
         },
         required: true
     },
@@ -35,10 +41,9 @@ const roomSchema = new Schema({
         type: String,
         validate: {
             validator: function (v) {
-                // validate extension for video
-                return !v || /\.(mp4)$/i.test(v);
+                return !v || v.startsWith('http') || /\.(mp4)$/i.test(v);
             },
-            message: 'Video must be MP4 format'
+            message: 'Video must be a valid URL or MP4 file'
         }
     },
     amenities: {
