@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+
 const roomSchema = new Schema({
     ownerName: { type: String, required: true },
     roomTitle: { type: String, required: true },
@@ -18,10 +19,18 @@ const roomSchema = new Schema({
         type: [String],
         validate: {
             validator: function (arr) {
-                // validate extensions for images
-                return arr.every(img => /\.(jpe?g|png|webp)$/i.test(img));
+                // ✅ FIXED: Validate URL format instead of file extension
+                // This works with Cloudinary URLs
+                return arr.every(img => {
+                    try {
+                        // Check if it's a valid URL or a valid file path
+                        return img.startsWith('http') || /\.(jpe?g|png|webp)$/i.test(img);
+                    } catch {
+                        return false;
+                    }
+                });
             },
-            message: 'Images must be JPEG, PNG, or WEBP formats'
+            message: 'Images must be valid URLs or image files (JPEG, PNG, WEBP)'
         },
         required: true
     },
@@ -29,10 +38,10 @@ const roomSchema = new Schema({
         type: String,
         validate: {
             validator: function (v) {
-                // validate extension for video
-                return !v || /\.(mp4)$/i.test(v);
+                // ✅ FIXED: Allow URLs or MP4 files
+                return !v || v.startsWith('http') || /\.(mp4)$/i.test(v);
             },
-            message: 'Video must be MP4 format'
+            message: 'Video must be a valid URL or MP4 file'
         }
     },
     amenities: {
@@ -41,4 +50,5 @@ const roomSchema = new Schema({
         required: true
     }
 }, { timestamps: true });
+
 export default model('Room', roomSchema);
