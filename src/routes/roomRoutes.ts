@@ -1,7 +1,7 @@
 import express from 'express';
 import * as roomController from '../controllers/roomController.js';
 import { authMiddleware } from '../middleware/authMiddleware.js';
-import { upload } from '../middleware/upload.js'; 
+import { upload } from '../middleware/upload.js';
 import Room from '../models/roomModel.js';
 
 const router = express.Router();
@@ -12,17 +12,23 @@ router.get('/', roomController.getAllRooms);
 // ==================== PROTECTED ROUTES ====================
 // 🆕 MUST come BEFORE /:id route
 router.get('/user/my-rooms', authMiddleware, async (req, res) => {
+  console.log('🏠 /user/my-rooms route HIT!'); // ✅ ADD DEBUG LOG
+  console.log('🔍 User from token:', req.user); // ✅ ADD DEBUG LOG
+  
   try {
-    const userId = req.user?.id; // ✅ FIXED: Use only req.user?.id
+    const userId = req.user?.id;
     
     if (!userId) {
+      console.log('❌ No userId found in token');
       return res.status(401).json({ 
         success: false,
         message: 'User ID missing in token' 
       });
     }
 
+    console.log('🔍 Searching for rooms with userId:', userId);
     const rooms = await Room.find({ userId }).sort({ createdAt: -1 });
+    console.log('✅ Found rooms:', rooms.length);
     
     res.json({
       success: true,
