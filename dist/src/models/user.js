@@ -51,6 +51,13 @@ const userSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    wishlist: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Room', // Reference to your Room model
+            default: [],
+        },
+    ],
     resetPasswordToken: {
         type: String,
         default: undefined,

@@ -2,9 +2,9 @@ import express from 'express';
 import * as userController from '../controllers/userController.js';
 import { validateRequest } from '../middleware/validateRequest.js';
 import { upload } from '../middleware/upload.js';
-import { authMiddleware } from '../middleware/authMiddleware.js'; // ✅ Changed from authenticateToken
+import { authMiddleware } from '../middleware/authMiddleware.js';
 import { signupSchema, loginSchema, forgotPasswordSchema, verifyOtpSchema, resetPasswordSchema, } from '../validation/userValidation.js';
-import User from '../models/user.js';
+import User from '../models/user.js'; // ✅ Import BOTH User AND IUser type
 const router = express.Router();
 // ==================== PUBLIC ROUTES ====================
 router.post('/signup', validateRequest({ body: signupSchema }), userController.signupUser);
@@ -16,21 +16,27 @@ router.post('/reset-password', validateRequest({ body: resetPasswordSchema }), u
 // Get current user info
 router.get('/me', authMiddleware, async (req, res) => {
     try {
+        console.log('👤 GET /me route hit');
+        console.log('🔍 req.user:', req.user);
         const user = req.user;
-        const userId = user?.id; // ✅ Changed - JWT payload has 'id', not 'userId'
+        const userId = user?.id;
         if (!userId) {
+            console.log('❌ No userId in token');
             return res.status(401).json({
                 success: false,
                 message: 'User ID missing in token'
             });
         }
-        const foundUser = await User.findById(userId).select('-password');
+        console.log('🔍 Looking up user with ID:', userId);
+        const foundUser = await User.findById(userId).select('-password'); // ✅ Add type
         if (!foundUser) {
+            console.log('❌ User not found in database');
             return res.status(404).json({
                 success: false,
                 message: 'User not found'
             });
         }
+        console.log('✅ User found:', foundUser.email);
         res.json({
             success: true,
             user: {
@@ -41,20 +47,22 @@ router.get('/me', authMiddleware, async (req, res) => {
                 userType: foundUser.userType || null,
                 profilePicture: foundUser.profilePicture,
                 isVerified: foundUser.isVerified,
+                phoneNumber: foundUser.phoneNumber,
+                createdAt: foundUser.createdAt,
+                updatedAt: foundUser.updatedAt
             }
         });
     }
     catch (error) {
-        console.error('Error fetching user:', error);
+        console.error('❌ Error fetching user:', error);
         res.status(500).json({
             success: false,
-            message: 'Server error'
+            message: 'Server error fetching user information'
         });
     }
 });
 // Update user type
-router.patch('/update-user-type', authMiddleware, userController.updateUserType); // ✅ Changed
+router.patch('/update-user-type', authMiddleware, userController.updateUserType);
 // Upload/Update Profile Picture
-router.post('/upload-profile-picture', authMiddleware, // ✅ Changed
-upload.single('profilePicture'), userController.uploadProfilePicture);
+router.post('/upload-profile-picture', authMiddleware, upload.single('profilePicture'), userController.uploadProfilePicture);
 export default router;

@@ -17,37 +17,23 @@ const addRoomLogic = async (req, res) => {
         console.log('📥 req.body:', JSON.stringify(req.body, null, 2));
         console.log('📥 req.files:', req.files);
         console.log('📥 req.user:', JSON.stringify(req.user, null, 2));
-        console.log('📥 req.headers.authorization:', req.headers.authorization);
         console.log('📥 ═══════════════════════════════════════');
-        // ✅ CRITICAL: Get userId from authenticated user
         if (!req.user || !req.user.id) {
             console.error('❌ Authentication failed - no user or user.id');
-            console.error('❌ req.user:', req.user);
             throw new ApiError(HTTP_STATUS_CODE.UNAUTHORIZED, 'User not authenticated');
         }
-        console.log('🔍 User ID type:', typeof req.user.id);
-        console.log('🔍 User ID value:', req.user.id);
-        console.log('🔍 User ID length:', req.user.id?.length);
-        console.log('🔍 User email:', req.user.email);
-        // ✅ Validate ObjectId format
         const objectIdRegex = /^[0-9a-fA-F]{24}$/;
         if (!objectIdRegex.test(req.user.id)) {
             console.error('❌ Invalid ObjectId format:', req.user.id);
-            console.error('❌ ObjectId must be a 24-character hex string');
-            console.error('❌ Received length:', req.user.id.length);
-            console.error('❌ Received value:', req.user.id);
-            throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, `Invalid user ID format. Expected 24-character hex string, got: ${req.user.id}`);
+            throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, `Invalid user ID format`);
         }
-        // Cloudinary URLs are in file.path (full URLs)
         const imageUrls = req.files
             ? Array.isArray(req.files)
-                ? req.files.map((file) => file.path) // file.path contains full Cloudinary URL
+                ? req.files.map((file) => file.path)
                 : []
             : [];
         console.log('📸 Image URLs:', imageUrls);
-        console.log('📸 Number of images:', imageUrls.length);
         const { ownerName, roomTitle, location, price, beds, bathrooms, type, contactNumber, description, ownerRequirements, amenities, } = req.body;
-        // Normalize amenities into string array whatever the input format
         let amenitiesArray = [];
         if (amenities) {
             if (typeof amenities === 'string') {
@@ -64,8 +50,6 @@ const addRoomLogic = async (req, res) => {
                 amenitiesArray = amenities;
             }
         }
-        console.log('🎯 Amenities processed:', amenitiesArray);
-        // ✅ Validate required fields before creating payload
         const validationErrors = [];
         if (!ownerName?.trim())
             validationErrors.push('ownerName is required');
@@ -91,11 +75,9 @@ const addRoomLogic = async (req, res) => {
             console.error('❌ Validation errors:', validationErrors);
             throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, `Validation failed: ${validationErrors.join(', ')}`);
         }
-        // ✅ FIXED: Just use the string directly - Mongoose will auto-cast to ObjectId
         const userId = req.user.id;
-        console.log('✅ Using userId:', userId, '(type:', typeof userId, ')');
         const payload = {
-            userId: userId, // Pass as string, Mongoose handles conversion to ObjectId
+            userId: userId,
             ownerName: ownerName.trim(),
             roomTitle: roomTitle.trim(),
             location: location.trim(),
@@ -109,52 +91,118 @@ const addRoomLogic = async (req, res) => {
             amenities: amenitiesArray,
             images: imageUrls,
         };
-        console.log('📤 ═══════════════════════════════════════');
-        console.log('📤 Sending payload to service:');
-        console.log(JSON.stringify(payload, null, 2));
-        console.log('📤 ═══════════════════════════════════════');
+        console.log('📤 Sending payload to service');
         const room = await roomService.addRoom(payload);
         console.log('✅ Room created successfully:', room);
         sendResponse(res, HTTP_STATUS_CODE.CREATED, { success: true, data: room });
     }
     catch (error) {
-        console.error('❌ ═══════════════════════════════════════');
-        console.error('❌ Error in addRoomLogic:');
-        console.error('❌ Error name:', error.name);
-        console.error('❌ Error message:', error.message);
-        console.error('❌ Error stack:', error.stack);
-        console.error('❌ Full error object:', JSON.stringify(error, Object.getOwnPropertyNames(error), 2));
-        console.error('❌ ═══════════════════════════════════════');
-        throw error; // Re-throw to let asyncWrapper handle it
+        console.error('❌ Error in addRoomLogic:', error.message);
+        throw error;
     }
 };
 export const addRoom = asyncWrapper(addRoomLogic);
 const updateRoomLogic = async (req, res) => {
-    const { id } = req.params;
-    // ✅ Optional: Verify user owns the room before updating
-    const existingRoom = await roomService.getRoomById(id);
-    if (!existingRoom) {
-        throw new ApiError(HTTP_STATUS_CODE.NOT_FOUND, 'Room not found');
+    try {
+        console.log('🔄 ═══════════════════════════════════════');
+        console.log('🔄 UPDATE ROOM REQUEST STARTED');
+        console.log('🔄 Room ID:', req.params.id);
+        console.log('🔄 req.body:', JSON.stringify(req.body, null, 2));
+        console.log('🔄 req.files:', req.files);
+        console.log('🔄 req.user:', req.user);
+        console.log('🔄 ═══════════════════════════════════════');
+        const { id } = req.params;
+        // Verify room exists
+        const existingRoom = await roomService.getRoomById(id);
+        if (!existingRoom) {
+            throw new ApiError(HTTP_STATUS_CODE.NOT_FOUND, 'Room not found');
+        }
+        // Verify ownership - ✅ FIXED: Use 403 instead of HTTP_STATUS_CODE.FORBIDDEN
+        if (req.user && existingRoom.userId.toString() !== req.user.id) {
+            throw new ApiError(403, 'You can only update your own rooms');
+        }
+        // Handle new images if uploaded
+        let imageUrls = existingRoom.images;
+        if (req.files && Array.isArray(req.files) && req.files.length > 0) {
+            imageUrls = req.files.map((file) => file.path);
+            console.log('📸 New images uploaded:', imageUrls);
+        }
+        // Process amenities if provided
+        let amenitiesArray = existingRoom.amenities;
+        if (req.body.amenities) {
+            if (typeof req.body.amenities === 'string') {
+                try {
+                    amenitiesArray = JSON.parse(req.body.amenities);
+                    if (!Array.isArray(amenitiesArray))
+                        amenitiesArray = [amenitiesArray];
+                }
+                catch {
+                    amenitiesArray = req.body.amenities.split(',').map((a) => a.trim());
+                }
+            }
+            else if (Array.isArray(req.body.amenities)) {
+                amenitiesArray = req.body.amenities;
+            }
+        }
+        // Build update payload
+        const updatePayload = {
+            ...req.body,
+            images: imageUrls,
+            amenities: amenitiesArray,
+        };
+        // Convert numeric fields
+        if (updatePayload.price)
+            updatePayload.price = Number(updatePayload.price);
+        if (updatePayload.beds)
+            updatePayload.beds = Number(updatePayload.beds);
+        if (updatePayload.bathrooms)
+            updatePayload.bathrooms = Number(updatePayload.bathrooms);
+        console.log('📤 Update payload:', JSON.stringify(updatePayload, null, 2));
+        const updatedRoom = await roomService.updateRoom(id, updatePayload);
+        console.log('✅ Room updated successfully');
+        console.log('🔄 ═══════════════════════════════════════');
+        sendResponse(res, HTTP_STATUS_CODE.OK, {
+            success: true,
+            message: 'Room updated successfully',
+            data: updatedRoom
+        });
     }
-    if (req.user && existingRoom.userId.toString() !== req.user.id) {
-        throw new ApiError(403, 'You can only update your own rooms');
+    catch (error) {
+        console.error('❌ Error in updateRoomLogic:', error.message);
+        throw error;
     }
-    const room = await roomService.updateRoom(id, req.body);
-    sendResponse(res, HTTP_STATUS_CODE.OK, { success: true, data: room });
 };
 export const updateRoom = asyncWrapper(updateRoomLogic);
 const deleteRoomLogic = async (req, res) => {
-    const { id } = req.params;
-    // ✅ Optional: Verify user owns the room before deleting
-    const existingRoom = await roomService.getRoomById(id);
-    if (!existingRoom) {
-        throw new ApiError(HTTP_STATUS_CODE.NOT_FOUND, 'Room not found');
+    try {
+        console.log('🗑 ═══════════════════════════════════════');
+        console.log('🗑 DELETE ROOM REQUEST STARTED');
+        console.log('🗑 Room ID:', req.params.id);
+        console.log('🗑 User:', req.user);
+        console.log('🗑 ═══════════════════════════════════════');
+        const { id } = req.params;
+        // Verify room exists
+        const existingRoom = await roomService.getRoomById(id);
+        if (!existingRoom) {
+            throw new ApiError(HTTP_STATUS_CODE.NOT_FOUND, 'Room not found');
+        }
+        // Verify ownership - ✅ FIXED: Use 403 instead of HTTP_STATUS_CODE.FORBIDDEN
+        if (req.user && existingRoom.userId.toString() !== req.user.id) {
+            throw new ApiError(403, 'You can only delete your own rooms');
+        }
+        await roomService.deleteRoom(id);
+        console.log('✅ Room deleted successfully');
+        console.log('🗑 ═══════════════════════════════════════');
+        sendResponse(res, HTTP_STATUS_CODE.OK, {
+            success: true,
+            message: 'Room deleted successfully',
+            deletedId: id
+        });
     }
-    if (req.user && existingRoom.userId.toString() !== req.user.id) {
-        throw new ApiError(403, 'You can only delete your own rooms');
+    catch (error) {
+        console.error('❌ Error in deleteRoomLogic:', error.message);
+        throw error;
     }
-    const room = await roomService.deleteRoom(id);
-    sendResponse(res, HTTP_STATUS_CODE.OK, { success: true, message: 'Room deleted' });
 };
 export const deleteRoom = asyncWrapper(deleteRoomLogic);
 const getRoomByIdLogic = async (req, res) => {
