@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import errorHandler from './src/middleware/errorHandler.js';
 import roomRoutes from './src/routes/roomRoutes.js';
 import userRoutes from './src/routes/userRoutes.js';
+import wishlistRoutes from './src/routes/wishlistRoutes.js'; // ✅ Add this import
 import HTTP_STATUS_CODE from './src/utils/httpStatusCode.js';
 import logger from './src/utils/logger.js';
 import googleAuthRoutes from './src/routes/googleAuthroutes.js';
@@ -62,6 +63,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // Route mounting
 app.use('/api/users', userRoutes);
 app.use('/api/rooms', roomRoutes);
+app.use('/api/wishlist', wishlistRoutes); // ✅ Add wishlist routes
 app.use('/api', googleAuthRoutes);
 app.use('/uploads', express.static('uploads'));
 
@@ -81,6 +83,12 @@ app.get('/', (req: Request, res: Response) => {
       deleteRoom: 'DELETE /api/rooms/:id',
       getRoomById: 'GET /api/rooms/:id',
       getUserProfile: 'GET /api/users/me',
+      // ✅ Add wishlist endpoints to documentation
+      getWishlist: 'GET /api/wishlist',
+      addToWishlist: 'POST /api/wishlist/add/:roomId',
+      removeFromWishlist: 'DELETE /api/wishlist/remove/:roomId',
+      clearWishlist: 'DELETE /api/wishlist/clear',
+      checkInWishlist: 'GET /api/wishlist/check/:roomId',
     },
   });
 });

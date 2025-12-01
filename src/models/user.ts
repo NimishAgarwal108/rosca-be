@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
+// ✅ MUST EXPORT the interface
 export interface IUser extends Document {
   _id: mongoose.Types.ObjectId;
   firstName: string;
@@ -12,6 +13,7 @@ export interface IUser extends Document {
   phoneNumber?: string;
   userType?: 'host' | 'user';
   isVerified: boolean;
+  wishlist: mongoose.Types.ObjectId[]; // Array of Room IDs
   resetPasswordToken?: string;
   resetPasswordExpires?: Date;
   resetOtp?: string;
@@ -66,13 +68,20 @@ const userSchema = new Schema<IUser>(
     },
     userType: {
       type: String,
-      enum: ['host', 'user',null],
-      default:null,
+      enum: ['host', 'user', null],
+      default: null,
     },
     isVerified: {
       type: Boolean,
       default: false,
     },
+    wishlist: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Room', // Reference to your Room model
+        default: [],
+      },
+    ],
     resetPasswordToken: {
       type: String,
       default: undefined,
