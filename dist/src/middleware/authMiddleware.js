@@ -15,6 +15,12 @@ export const authMiddleware = async (req, res, next) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
         // Attach user info to request
         req.user = decoded;
+        // ✅ Add debug log to verify
+        console.log('🔐 Auth middleware - decoded user:', {
+            id: decoded.id,
+            userId: decoded.userId,
+            email: decoded.email
+        });
         next();
     }
     catch (error) {

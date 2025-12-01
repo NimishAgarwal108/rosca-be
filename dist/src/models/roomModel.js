@@ -1,7 +1,7 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model } from 'mongoose'; // ✅ Added Types import
 const roomSchema = new Schema({
     userId: {
-        type: Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId, // ✅ Schema.Types.ObjectId is correct for schema definition
         ref: 'User',
         required: true
     },

@@ -1,4 +1,3 @@
-import { Schema } from 'mongoose'; // ✅ Import Schema for ObjectId type
 import * as roomService from '../services/roomService.js';
 import { ApiError } from '../utils/apiError.js';
 import { asyncWrapper } from '../utils/asyncWrapper.js';
@@ -30,7 +29,7 @@ const addRoomLogic = async (req, res) => {
         console.log('🔍 User ID value:', req.user.id);
         console.log('🔍 User ID length:', req.user.id?.length);
         console.log('🔍 User email:', req.user.email);
-        // ✅ Validate ObjectId format before trying to create it
+        // ✅ Validate ObjectId format
         const objectIdRegex = /^[0-9a-fA-F]{24}$/;
         if (!objectIdRegex.test(req.user.id)) {
             console.error('❌ Invalid ObjectId format:', req.user.id);
@@ -92,18 +91,11 @@ const addRoomLogic = async (req, res) => {
             console.error('❌ Validation errors:', validationErrors);
             throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, `Validation failed: ${validationErrors.join(', ')}`);
         }
-        // Defensive trimming and proper type conversion for required fields
-        let userId;
-        try {
-            userId = new Schema.Types.ObjectId(req.user.id);
-            console.log('✅ ObjectId created successfully:', userId);
-        }
-        catch (objIdError) {
-            console.error('❌ Failed to create ObjectId:', objIdError);
-            throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, `Invalid user ID: ${objIdError.message}`);
-        }
+        // ✅ FIXED: Just use the string directly - Mongoose will auto-cast to ObjectId
+        const userId = req.user.id;
+        console.log('✅ Using userId:', userId, '(type:', typeof userId, ')');
         const payload = {
-            userId: userId,
+            userId: userId, // Pass as string, Mongoose handles conversion to ObjectId
             ownerName: ownerName.trim(),
             roomTitle: roomTitle.trim(),
             location: location.trim(),
@@ -145,7 +137,7 @@ const updateRoomLogic = async (req, res) => {
         throw new ApiError(HTTP_STATUS_CODE.NOT_FOUND, 'Room not found');
     }
     if (req.user && existingRoom.userId.toString() !== req.user.id) {
-        throw new ApiError(403, 'You can only update your own rooms'); // ✅ FIX: Use 403 directly
+        throw new ApiError(403, 'You can only update your own rooms');
     }
     const room = await roomService.updateRoom(id, req.body);
     sendResponse(res, HTTP_STATUS_CODE.OK, { success: true, data: room });
@@ -159,7 +151,7 @@ const deleteRoomLogic = async (req, res) => {
         throw new ApiError(HTTP_STATUS_CODE.NOT_FOUND, 'Room not found');
     }
     if (req.user && existingRoom.userId.toString() !== req.user.id) {
-        throw new ApiError(403, 'You can only delete your own rooms'); // ✅ FIX: Use 403 directly
+        throw new ApiError(403, 'You can only delete your own rooms');
     }
     const room = await roomService.deleteRoom(id);
     sendResponse(res, HTTP_STATUS_CODE.OK, { success: true, message: 'Room deleted' });

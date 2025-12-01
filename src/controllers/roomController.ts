@@ -37,7 +37,7 @@ const addRoomLogic = async (req: Request, res: Response) => {
     console.log('🔍 User ID length:', req.user.id?.length);
     console.log('🔍 User email:', req.user.email);
     
-    // ✅ Validate ObjectId format before trying to create it
+    // ✅ Validate ObjectId format
     const objectIdRegex = /^[0-9a-fA-F]{24}$/;
     if (!objectIdRegex.test(req.user.id)) {
       console.error('❌ Invalid ObjectId format:', req.user.id);
@@ -107,18 +107,12 @@ const addRoomLogic = async (req: Request, res: Response) => {
       throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, `Validation failed: ${validationErrors.join(', ')}`);
     }
 
-    // ✅ FIXED: Use Types.ObjectId instead of Schema.Types.ObjectId
-   let userId;
-try {
-   userId = req.user.id;// ✅ FIXED - No more Mongoose warning
-  console.log('✅ ObjectId created successfully:', userId);
-} catch (objIdError: any) {
-  console.error('❌ Failed to create ObjectId:', objIdError);
-  throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, `Invalid user ID: ${objIdError.message}`);
-}
+    // ✅ FIXED: Just use the string directly - Mongoose will auto-cast to ObjectId
+    const userId = req.user.id;
+    console.log('✅ Using userId:', userId, '(type:', typeof userId, ')');
     
     const payload = {
-      userId: userId,
+      userId: userId, // Pass as string, Mongoose handles conversion to ObjectId
       ownerName: ownerName.trim(),
       roomTitle: roomTitle.trim(),
       location: location.trim(),
