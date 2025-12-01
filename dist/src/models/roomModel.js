@@ -1,5 +1,11 @@
 import { Schema, model } from 'mongoose';
 const roomSchema = new Schema({
+    userId: {
+        // NEW: Reference to User who created this room
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: [true, 'User ID is required'],
+    },
     ownerName: { type: String, required: true },
     roomTitle: { type: String, required: true },
     location: { type: String, required: true },

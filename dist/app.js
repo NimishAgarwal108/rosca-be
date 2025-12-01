@@ -19,8 +19,8 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Max-Age', '86400');
     // Handle preflight OPTIONS requests immediately
     if (req.method === 'OPTIONS') {
-        console.log('✅ Handling OPTIONS preflight for:', req.path);
-        return res.status(204).end(); // Changed to 204 No Content
+        console.log('✅ OPTIONS preflight handled for:', req.path);
+        return res.status(204).end();
     }
     next();
 });
@@ -28,7 +28,19 @@ app.use((req, res, next) => {
 // Body parsing middleware - AFTER CORS
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// Logging middleware - AFTER CORS
+// 🔍 DEBUG MIDDLEWARE - Log ALL requests
+app.use((req, res, next) => {
+    console.log('🔍 INCOMING REQUEST:', {
+        method: req.method,
+        path: req.path,
+        url: req.url,
+        contentType: req.headers['content-type'],
+        hasAuth: !!req.headers.authorization,
+        body: req.body
+    });
+    next();
+});
+// Logging middleware
 app.use((req, res, next) => {
     logger.info('Incoming request', {
         method: req.method,
@@ -64,6 +76,11 @@ app.get('/', (req, res) => {
 });
 // 404 Handler - BEFORE error handler
 app.use((req, res) => {
+    console.log('❌ 404 - Route not found:', {
+        method: req.method,
+        path: req.path,
+        url: req.url
+    });
     logger.warn('Route not found', {
         method: req.method,
         path: req.path,

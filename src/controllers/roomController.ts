@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { Schema } from 'mongoose'; // Add this import
 import * as roomService from '../services/roomService.js';
 import { ApiError } from '../utils/apiError.js';
 import { asyncWrapper } from '../utils/asyncWrapper.js';
@@ -18,7 +19,6 @@ const addRoomLogic = async (req: Request, res: Response) => {
   console.log('req.body:', req.body);
   console.log('req.files:', req.files);
 
-  // ✅ FIXED: Use only req.user?.id since JWT payload has 'id'
   const userId = req.user?.id;
 
   if (!userId) {
@@ -31,7 +31,7 @@ const addRoomLogic = async (req: Request, res: Response) => {
   // Cloudinary URLs are in file.path (full URLs)
   const imageUrls = req.files
     ? Array.isArray(req.files)
-      ? (req.files as Express.Multer.File[]).map(file => file.path) // file.path contains full Cloudinary URL
+      ? (req.files as Express.Multer.File[]).map(file => file.path)
       : []
     : [];
 
@@ -66,7 +66,7 @@ const addRoomLogic = async (req: Request, res: Response) => {
 
   // Defensive trimming and proper type conversion for required fields
   const payload = {
-    userId: userId, // ✅ Add userId to payload
+    userId: new Schema.Types.ObjectId(userId), // ✅ Use Schema.Types.ObjectId
     ownerName: ownerName?.trim() || undefined,
     roomTitle: roomTitle?.trim() || undefined,
     location: location?.trim() || undefined,
@@ -78,7 +78,7 @@ const addRoomLogic = async (req: Request, res: Response) => {
     description: description?.trim() || undefined,
     ownerRequirements: ownerRequirements?.trim() || undefined,
     amenities: amenitiesArray,
-    images: imageUrls, // Now contains full Cloudinary URLs
+    images: imageUrls,
   };
 
   const room = await roomService.addRoom(payload);
@@ -112,7 +112,6 @@ export const getRoomById = asyncWrapper(getRoomByIdLogic);
 
 // Get rooms by user ID
 const getRoomsByUserIdLogic = async (req: Request, res: Response) => {
-  // ✅ FIXED: Use only req.user?.id since JWT payload has 'id'
   const userId = req.user?.id;
 
   if (!userId) {

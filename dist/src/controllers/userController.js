@@ -17,7 +17,6 @@ const generateToken = (userId, email) => {
 };
 const signupUserLogic = async (req, res) => {
     const { firstName, lastName, email, password } = req.body;
-    // Validate required fields
     if (!firstName || !email || !password) {
         throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, 'First name, email, and password are required');
     }
@@ -30,14 +29,12 @@ const signupUserLogic = async (req, res) => {
     if (!isValid) {
         throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, message);
     }
-    // Create user - NO googleId here!
     const user = await userService.createUser({
         firstName,
         lastName: lastName || '',
         email: sanitizedEmail,
-        password: password, // Plain password - will be hashed by model
+        password: password,
     });
-    // Generate token
     const token = generateToken(user._id.toString(), user.email);
     sendResponse(res, HTTP_STATUS_CODE.CREATED, {
         success: true,
@@ -65,17 +62,9 @@ const loginUserLogic = async (req, res) => {
     if (!user) {
         throw new ApiError(HTTP_STATUS_CODE.UNAUTHORIZED, 'Invalid email or password');
     }
-    console.log('🔍 Login Debug:', {
-        email: user.email,
-        hasPassword: !!user.password,
-        hasGoogleId: !!user.googleId,
-        googleId: user.googleId
-    });
-    // Check if user is Google OAuth only (has googleId but no password)
     if (!user.password && user.googleId) {
         throw new ApiError(HTTP_STATUS_CODE.UNAUTHORIZED, 'This account uses Google Sign-In. Please sign in with Google.');
     }
-    // Check if password exists (it should for manual signup)
     if (!user.password) {
         throw new ApiError(HTTP_STATUS_CODE.UNAUTHORIZED, 'Invalid account state. Please contact support.');
     }
@@ -83,7 +72,6 @@ const loginUserLogic = async (req, res) => {
     if (!isPasswordCorrect) {
         throw new ApiError(HTTP_STATUS_CODE.UNAUTHORIZED, 'Invalid email or password');
     }
-    // Generate token
     const token = generateToken(user._id.toString(), user.email);
     sendResponse(res, HTTP_STATUS_CODE.OK, {
         success: true,
@@ -101,33 +89,20 @@ const loginUserLogic = async (req, res) => {
     });
 };
 export const loginUser = asyncWrapper(loginUserLogic);
-// Update user type
 const updateUserTypeLogic = async (req, res) => {
     const { userType } = req.body;
-    // Get userId from the authenticated user with proper type casting
-    const user = req.user;
-    const userId = user?.userId || user?.id;
-    console.log('🔍 Update user type request:', {
-        userId,
-        userType,
-        userObject: req.user
-    });
+    // ✅ FIXED: Use only req.user?.id since JWT payload has 'id'
+    const userId = req.user?.id;
     if (!userId) {
         throw new ApiError(HTTP_STATUS_CODE.UNAUTHORIZED, 'User not authenticated');
     }
-    // Validate userType
     if (!userType || !['user', 'host'].includes(userType)) {
         throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, 'Invalid user type. Must be either "user" or "host"');
     }
-    // Update user
     const updatedUser = await userService.updateUserType(userId, userType);
     if (!updatedUser) {
         throw new ApiError(HTTP_STATUS_CODE.NOT_FOUND, 'User not found');
     }
-    console.log('✅ User type updated successfully:', {
-        userId: updatedUser._id,
-        userType: updatedUser.userType
-    });
     sendResponse(res, HTTP_STATUS_CODE.OK, {
         success: true,
         message: 'User type updated successfully',
@@ -143,6 +118,37 @@ const updateUserTypeLogic = async (req, res) => {
     });
 };
 export const updateUserType = asyncWrapper(updateUserTypeLogic);
+// Upload/Update Profile Picture
+const uploadProfilePictureLogic = async (req, res) => {
+    // ✅ FIXED: Use only req.user?.id since JWT payload has 'id'
+    const userId = req.user?.id;
+    if (!userId) {
+        throw new ApiError(HTTP_STATUS_CODE.UNAUTHORIZED, 'User not authenticated');
+    }
+    if (!req.file) {
+        throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, 'No image file provided');
+    }
+    // req.file.path contains the full Cloudinary URL
+    const profilePictureUrl = req.file.path;
+    const updatedUser = await userService.updateProfilePicture(userId, profilePictureUrl);
+    if (!updatedUser) {
+        throw new ApiError(HTTP_STATUS_CODE.NOT_FOUND, 'User not found');
+    }
+    sendResponse(res, HTTP_STATUS_CODE.OK, {
+        success: true,
+        message: 'Profile picture updated successfully',
+        user: {
+            id: updatedUser._id,
+            firstName: updatedUser.firstName,
+            lastName: updatedUser.lastName || '',
+            email: updatedUser.email,
+            userType: updatedUser.userType,
+            profilePicture: updatedUser.profilePicture,
+            isVerified: updatedUser.isVerified,
+        },
+    });
+};
+export const uploadProfilePicture = asyncWrapper(uploadProfilePictureLogic);
 const forgotPasswordLogic = async (req, res) => {
     const { email } = req.body;
     if (!email) {
@@ -153,7 +159,6 @@ const forgotPasswordLogic = async (req, res) => {
     if (!user) {
         throw new ApiError(HTTP_STATUS_CODE.NOT_FOUND, 'User not found');
     }
-    // Check if user uses Google OAuth only
     if (user.googleId && !user.password) {
         throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, 'This account uses Google Sign-In. Password reset is not available.');
     }
@@ -210,7 +215,6 @@ const resetPasswordLogic = async (req, res) => {
     if (isOtpExpired(user.resetOtpExpiry)) {
         throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, 'OTP expired');
     }
-    // Send plain password - will be hashed by model's pre-save hook
     await userService.resetPassword(sanitizedEmail, newPassword);
     sendResponse(res, HTTP_STATUS_CODE.OK, {
         success: true,
