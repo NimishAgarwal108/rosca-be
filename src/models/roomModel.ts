@@ -20,7 +20,6 @@ export interface RoomDocument extends Document {
 }
 
 const roomSchema = new Schema({
-  // ✅ ADD THIS: Link room to authenticated user
   userId: { 
     type: Schema.Types.ObjectId, 
     ref: 'User', 

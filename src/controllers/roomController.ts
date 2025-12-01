@@ -17,14 +17,36 @@ const getAllRoomsLogic = async (req: Request, res: Response) => {
 export const getAllRooms = asyncWrapper(getAllRoomsLogic);
 
 const addRoomLogic = async (req: Request, res: Response) => {
-  console.log('📥 req.body:', req.body);
-  console.log('📥 req.files:', req.files);
-  console.log('📥 req.user:', req.user); // ✅ Check authenticated user
-  
-  // ✅ CRITICAL: Get userId from authenticated user
-  if (!req.user || !req.user.id) {
-    throw new ApiError(HTTP_STATUS_CODE.UNAUTHORIZED, 'User not authenticated');
-  }
+  try {
+    console.log('📥 ═══════════════════════════════════════');
+    console.log('📥 ADD ROOM REQUEST STARTED');
+    console.log('📥 req.body:', JSON.stringify(req.body, null, 2));
+    console.log('📥 req.files:', req.files);
+    console.log('📥 req.user:', JSON.stringify(req.user, null, 2));
+    console.log('📥 req.headers.authorization:', req.headers.authorization);
+    console.log('📥 ═══════════════════════════════════════');
+    
+    // ✅ CRITICAL: Get userId from authenticated user
+    if (!req.user || !req.user.id) {
+      console.error('❌ Authentication failed - no user or user.id');
+      console.error('❌ req.user:', req.user);
+      throw new ApiError(HTTP_STATUS_CODE.UNAUTHORIZED, 'User not authenticated');
+    }
+    
+    console.log('🔍 User ID type:', typeof req.user.id);
+    console.log('🔍 User ID value:', req.user.id);
+    console.log('🔍 User ID length:', req.user.id?.length);
+    console.log('🔍 User email:', req.user.email);
+    
+    // ✅ Validate ObjectId format before trying to create it
+    const objectIdRegex = /^[0-9a-fA-F]{24}$/;
+    if (!objectIdRegex.test(req.user.id)) {
+      console.error('❌ Invalid ObjectId format:', req.user.id);
+      console.error('❌ ObjectId must be a 24-character hex string');
+      console.error('❌ Received length:', req.user.id.length);
+      console.error('❌ Received value:', req.user.id);
+      throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, `Invalid user ID format. Expected 24-character hex string, got: ${req.user.id}`);
+    }
 
   // Cloudinary URLs are in file.path (full URLs)
   const imageUrls = req.files
@@ -32,6 +54,9 @@ const addRoomLogic = async (req: Request, res: Response) => {
       ? req.files.map((file: any) => file.path) // file.path contains full Cloudinary URL
       : []
     : [];
+
+  console.log('📸 Image URLs:', imageUrls);
+  console.log('📸 Number of images:', imageUrls.length);
 
   const {
     ownerName,
@@ -61,28 +86,73 @@ const addRoomLogic = async (req: Request, res: Response) => {
       amenitiesArray = amenities;
     }
   }
+  
+  console.log('🎯 Amenities processed:', amenitiesArray);
+  
+  // ✅ Validate required fields before creating payload
+  const validationErrors: string[] = [];
+  
+  if (!ownerName?.trim()) validationErrors.push('ownerName is required');
+  if (!roomTitle?.trim()) validationErrors.push('roomTitle is required');
+  if (!location?.trim()) validationErrors.push('location is required');
+  if (!price || isNaN(Number(price))) validationErrors.push('valid price is required');
+  if (!beds || isNaN(Number(beds))) validationErrors.push('valid beds count is required');
+  if (!bathrooms || isNaN(Number(bathrooms))) validationErrors.push('valid bathrooms count is required');
+  if (!type) validationErrors.push('type is required');
+  if (!contactNumber?.trim()) validationErrors.push('contactNumber is required');
+  if (!amenitiesArray || amenitiesArray.length === 0) validationErrors.push('at least one amenity is required');
+  if (!imageUrls || imageUrls.length === 0) validationErrors.push('at least one image is required');
+  
+  if (validationErrors.length > 0) {
+    console.error('❌ Validation errors:', validationErrors);
+    throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, `Validation failed: ${validationErrors.join(', ')}`);
+  }
 
   // Defensive trimming and proper type conversion for required fields
+  let userId;
+  try {
+    userId = new Schema.Types.ObjectId(req.user.id);
+    console.log('✅ ObjectId created successfully:', userId);
+  } catch (objIdError: any) {
+    console.error('❌ Failed to create ObjectId:', objIdError);
+    throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, `Invalid user ID: ${objIdError.message}`);
+  }
+  
   const payload = {
-    userId: new Schema.Types.ObjectId(req.user.id), // ✅ FIX: Convert to Schema.Types.ObjectId
-    ownerName: ownerName?.trim() || undefined,
-    roomTitle: roomTitle?.trim() || undefined,
-    location: location?.trim() || undefined,
-    price: price !== undefined && price !== '' ? Number(price) : undefined,
-    beds: beds !== undefined && beds !== '' ? Number(beds) : undefined,
-    bathrooms: bathrooms !== undefined && bathrooms !== '' ? Number(bathrooms) : undefined,
-    type: type || undefined,
-    contactNumber: contactNumber?.trim() || undefined,
-    description: description?.trim() || undefined,
-    ownerRequirements: ownerRequirements?.trim() || undefined,
+    userId: userId,
+    ownerName: ownerName.trim(),
+    roomTitle: roomTitle.trim(),
+    location: location.trim(),
+    price: Number(price),
+    beds: Number(beds),
+    bathrooms: Number(bathrooms),
+    type: type,
+    contactNumber: contactNumber.trim(),
+    description: description?.trim() || '',
+    ownerRequirements: ownerRequirements?.trim() || '',
     amenities: amenitiesArray,
-    images: imageUrls, // Now contains full Cloudinary URLs
+    images: imageUrls,
   };
 
-  console.log('📤 Sending payload to service:', payload);
+  console.log('📤 ═══════════════════════════════════════');
+  console.log('📤 Sending payload to service:');
+  console.log(JSON.stringify(payload, null, 2));
+  console.log('📤 ═══════════════════════════════════════');
 
   const room = await roomService.addRoom(payload);
+  
+  console.log('✅ Room created successfully:', room);
   sendResponse(res, HTTP_STATUS_CODE.CREATED, { success: true, data: room });
+  } catch (error: any) {
+    console.error('❌ ═══════════════════════════════════════');
+    console.error('❌ Error in addRoomLogic:');
+    console.error('❌ Error name:', error.name);
+    console.error('❌ Error message:', error.message);
+    console.error('❌ Error stack:', error.stack);
+    console.error('❌ Full error object:', JSON.stringify(error, Object.getOwnPropertyNames(error), 2));
+    console.error('❌ ═══════════════════════════════════════');
+    throw error; // Re-throw to let asyncWrapper handle it
+  }
 };
 
 export const addRoom = asyncWrapper(addRoomLogic);
