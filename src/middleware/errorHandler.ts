@@ -16,6 +16,22 @@ const errorHandler = (err: any, req: Request, res: Response, next: NextFunction)
     statusCode = httpStatusCode.INTERNAL_SERVER_ERROR;
   }
 
+  // ✅ CRITICAL: Add console.error for Vercel logs
+  console.error('❌ ═══════════════════════════════════════');
+  console.error('❌ Error Handler Caught Error:');
+  console.error('❌ Status:', statusCode);
+  console.error('❌ Message:', message);
+  console.error('❌ Error Name:', err.name);
+  console.error('❌ Error Message:', err.message);
+  console.error('❌ Stack:', err.stack);
+  console.error('❌ Full Error:', err);
+  console.error('❌ Request URL:', req.url);
+  console.error('❌ Request Method:', req.method);
+  console.error('❌ Request Body:', req.body);
+  console.error('❌ Request Files:', req.files);
+  console.error('❌ ═══════════════════════════════════════');
+
+  // Also use logger
   logger.error('Error:', {
     status: statusCode,
     message,
@@ -26,7 +42,12 @@ const errorHandler = (err: any, req: Request, res: Response, next: NextFunction)
   res.status(statusCode).json({
     success: false,
     message,
-    error: config.app.env === 'development' ? { stack: err.stack, ...err } : {},
+    error: config.app.env === 'development' ? { 
+      stack: err.stack, 
+      name: err.name,
+      message: err.message,
+      ...err 
+    } : {},
   });
 };
 

@@ -1,7 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
 export interface RoomDocument extends Document {
-  userId: Schema.Types.ObjectId; // NEW: Link room to user
+  userId: Schema.Types.ObjectId; // ✅ Link to User who created the room
   ownerName: string;
   roomTitle: string;
   location: string;
@@ -12,61 +12,65 @@ export interface RoomDocument extends Document {
   description?: string;
   ownerRequirements?: string;
   contactNumber: string;
-  images: string[]; // store image URLs or file paths (jpeg, png, webp)
-  video?: string; // store single video URL or file path (mp4)
-  amenities: string[]; // multiple selection from wifi, parking, AC, geysers, tv, fridge, kitchen, laundry
+  images: string[];
+  video?: string;
+  amenities: string[];
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-const roomSchema = new Schema<RoomDocument>(
-  {
-    userId: {
-      // NEW: Reference to User who created this room
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-      required: [true, 'User ID is required'],
-    },
-    ownerName: { type: String, required: true },
-    roomTitle: { type: String, required: true },
-    location: { type: String, required: true },
-    price: { type: Number, required: true },
-    beds: { type: Number, required: true },
-    bathrooms: { type: Number, required: true },
-    type: {
-      type: String,
-      required: true,
-      enum: ['single room', 'double room', 'shared room', 'flat', 'apartments']
-    },
-    description: { type: String },
-    ownerRequirements: { type: String },
-    contactNumber: { type: String, required: true },
-    images: {
-      type: [String],
-      validate: {
-        validator: function(arr: string[]) {
-          // validate extensions for images
-          return arr.every(img => /\.(jpe?g|png|webp)$/i.test(img));
-        },
-        message: 'Images must be JPEG, PNG, or WEBP formats'
+const roomSchema = new Schema({
+  // ✅ ADD THIS: Link room to authenticated user
+  userId: { 
+    type: Schema.Types.ObjectId, 
+    ref: 'User', 
+    required: true 
+  },
+  ownerName: { type: String, required: true },
+  roomTitle: { type: String, required: true },
+  location: { type: String, required: true },
+  price: { type: Number, required: true },
+  beds: { type: Number, required: true },
+  bathrooms: { type: Number, required: true },
+  type: {
+    type: String,
+    required: true,
+    enum: ['single room', 'double room', 'shared room', 'flat', 'apartments']
+  },
+  description: { type: String },
+  ownerRequirements: { type: String },
+  contactNumber: { type: String, required: true },
+  images: {
+    type: [String],
+    validate: {
+      validator: function (arr: string[]) {
+        // Allow either URLs (Cloudinary) or file extensions (local)
+        return arr.every(img => {
+          try {
+            return img.startsWith('http') || /\.(jpe?g|png|webp)$/i.test(img);
+          } catch {
+            return false;
+          }
+        });
       },
-      required: true
+      message: 'Images must be valid URLs or image files (JPEG, PNG, WEBP)'
     },
-    video: {
-      type: String,
-      validate: {
-        validator: function(v: string) {
-          // validate extension for video
-          return !v || /\.(mp4)$/i.test(v);
-        },
-        message: 'Video must be MP4 format'
-      }
-    },
-    amenities: {
-      type: [String],
-      enum: ['wifi', 'parking', 'AC', 'geysers', 'tv', 'fridge', 'kitchen', 'laundry'],
-      required: true
+    required: true
+  },
+  video: {
+    type: String,
+    validate: {
+      validator: function (v: string) {
+        return !v || v.startsWith('http') || /\.(mp4)$/i.test(v);
+      },
+      message: 'Video must be a valid URL or MP4 file'
     }
   },
-  { timestamps: true }
-);
+  amenities: {
+    type: [String],
+    enum: ['wifi', 'parking', 'AC', 'geysers', 'tv', 'fridge', 'kitchen', 'laundry'],
+    required: true
+  }
+}, { timestamps: true });
 
 export default model<RoomDocument>('Room', roomSchema);
