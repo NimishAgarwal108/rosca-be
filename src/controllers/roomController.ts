@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { Schema, Types } from 'mongoose'; // ✅ Added Types import
 import * as roomService from '../services/roomService.js';
 import { ApiError } from '../utils/apiError.js';
 import { asyncWrapper } from '../utils/asyncWrapper.js';
@@ -109,14 +108,14 @@ const addRoomLogic = async (req: Request, res: Response) => {
     }
 
     // ✅ FIXED: Use Types.ObjectId instead of Schema.Types.ObjectId
-    let userId;
-    try {
-       userId = req.user.id;// ✅ FIXED - No more Mongoose warning
-      console.log('✅ ObjectId created successfully:', userId);
-    } catch (objIdError: any) {
-      console.error('❌ Failed to create ObjectId:', objIdError);
-      throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, `Invalid user ID: ${objIdError.message}`);
-    }
+   let userId;
+try {
+   userId = req.user.id;// ✅ FIXED - No more Mongoose warning
+  console.log('✅ ObjectId created successfully:', userId);
+} catch (objIdError: any) {
+  console.error('❌ Failed to create ObjectId:', objIdError);
+  throw new ApiError(HTTP_STATUS_CODE.BAD_REQUEST, `Invalid user ID: ${objIdError.message}`);
+}
     
     const payload = {
       userId: userId,
