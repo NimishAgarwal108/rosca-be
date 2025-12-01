@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/', roomController.getAllRooms);
 
 // ==================== PROTECTED ROUTES ====================
-// 🆕 MUST come BEFORE /:id route
+// ⚠️ MUST come BEFORE /:id route
 router.get('/user/my-rooms', authenticateToken, async (req, res) => {
   try {
     const user = (req as any).user;
