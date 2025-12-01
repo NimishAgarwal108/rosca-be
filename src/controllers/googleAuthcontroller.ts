@@ -48,8 +48,6 @@ export const googleOAuthHandler = asyncWrapper(
           googleId: googleUser.id,
           profilePicture: googleUser.picture,
           isVerified: true,
-          userType: null, // ← IMPORTANT: New Google users need to select type
-          // NO password field - this is a Google-only account
         });
         console.log('✅ New Google user created:', user._id);
         console.log('✅ User type set to null - needs selection');
