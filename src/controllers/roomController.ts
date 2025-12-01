@@ -18,9 +18,8 @@ const addRoomLogic = async (req: Request, res: Response) => {
   console.log('req.body:', req.body);
   console.log('req.files:', req.files);
 
-  // Extract userId from authenticated user
-  const user = (req as any).user;
-  const userId = user?.userId || user?.id;
+  // ✅ FIXED: Use only req.user?.id since JWT payload has 'id'
+  const userId = req.user?.id;
 
   if (!userId) {
     throw new ApiError(
@@ -67,7 +66,7 @@ const addRoomLogic = async (req: Request, res: Response) => {
 
   // Defensive trimming and proper type conversion for required fields
   const payload = {
-    userId: userId, // NEW: Add userId to payload
+    userId: userId, // ✅ Add userId to payload
     ownerName: ownerName?.trim() || undefined,
     roomTitle: roomTitle?.trim() || undefined,
     location: location?.trim() || undefined,
@@ -111,10 +110,10 @@ const getRoomByIdLogic = async (req: Request, res: Response) => {
 };
 export const getRoomById = asyncWrapper(getRoomByIdLogic);
 
-// NEW: Get rooms by user ID
+// Get rooms by user ID
 const getRoomsByUserIdLogic = async (req: Request, res: Response) => {
-  const user = (req as any).user;
-  const userId = user?.userId || user?.id;
+  // ✅ FIXED: Use only req.user?.id since JWT payload has 'id'
+  const userId = req.user?.id;
 
   if (!userId) {
     throw new ApiError(HTTP_STATUS_CODE.UNAUTHORIZED, 'User not authenticated');

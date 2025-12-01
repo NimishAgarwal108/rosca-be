@@ -1,4 +1,4 @@
-import Room, { RoomDocument } from '../models/room.js';
+import Room, { RoomDocument } from '../models/roomModel.js';
 
 /**
  * Get all rooms

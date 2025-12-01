@@ -137,8 +137,8 @@ export const loginUser = asyncWrapper(loginUserLogic);
 const updateUserTypeLogic = async (req: Request, res: Response) => {
   const { userType } = req.body;
   
-  const user = req.user as { id: string; userId: string; email: string } | undefined;
-  const userId = user?.userId || user?.id;
+  // ✅ FIXED: Use only req.user?.id since JWT payload has 'id'
+  const userId = req.user?.id;
 
   if (!userId) {
     throw new ApiError(HTTP_STATUS_CODE.UNAUTHORIZED, 'User not authenticated');
@@ -173,10 +173,10 @@ const updateUserTypeLogic = async (req: Request, res: Response) => {
 };
 export const updateUserType = asyncWrapper(updateUserTypeLogic);
 
-// NEW: Upload/Update Profile Picture
+// Upload/Update Profile Picture
 const uploadProfilePictureLogic = async (req: Request, res: Response) => {
-  const user = req.user as { id: string; userId: string; email: string } | undefined;
-  const userId = user?.userId || user?.id;
+  // ✅ FIXED: Use only req.user?.id since JWT payload has 'id'
+  const userId = req.user?.id;
 
   if (!userId) {
     throw new ApiError(HTTP_STATUS_CODE.UNAUTHORIZED, 'User not authenticated');

@@ -1,7 +1,6 @@
 import express from 'express';
 import * as roomController from '../controllers/roomController.js';
-import { authenticateToken } from '../middleware/authMiddleware.js';
-import { upload } from '../middleware/upload.js';
+import { authMiddleware } from '../middleware/authMiddleware.js'; 
 import Room from '../models/roomModel.js';
 
 const router = express.Router();
@@ -11,7 +10,7 @@ router.get('/', roomController.getAllRooms);
 
 // ==================== PROTECTED ROUTES ====================
 // 🆕 MUST come BEFORE /:id route
-router.get('/user/my-rooms', authenticateToken, async (req, res) => {
+router.get('/user/my-rooms', authMiddleware, async (req, res) => { // ✅ Changed
   try {
     const user = (req as any).user;
     const userId = user?.userId || user?.id;
@@ -42,8 +41,8 @@ router.get('/user/my-rooms', authenticateToken, async (req, res) => {
 // Dynamic ID route comes AFTER specific routes
 router.get('/:id', roomController.getRoomById);
 
-router.post('/', authenticateToken, upload.array('images', 10), roomController.addRoom);
-router.put('/:id', authenticateToken, upload.array('images', 10), roomController.updateRoom);
-router.delete('/:id', authenticateToken, roomController.deleteRoom);
+router.post('/', authMiddleware, upload.array('images', 10), roomController.addRoom); // ✅ Changed
+router.put('/:id', authMiddleware, upload.array('images', 10), roomController.updateRoom); // ✅ Changed
+router.delete('/:id', authMiddleware, roomController.deleteRoom); // ✅ Changed
 
 export default router;

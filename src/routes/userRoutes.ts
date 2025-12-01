@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import * as userController from '../controllers/userController.js';
 import { validateRequest } from '../middleware/validateRequest.js';
 import { upload } from '../middleware/upload.js';
-import { authenticateToken } from '../middleware/authMiddleware.js';
+import { authMiddleware } from '../middleware/authMiddleware.js'; // ✅ Changed from authenticateToken
 import { 
   signupSchema, 
   loginSchema,
@@ -25,10 +25,10 @@ router.post('/reset-password', validateRequest({ body: resetPasswordSchema }), u
 // ==================== PROTECTED ROUTES ====================
 
 // Get current user info
-router.get('/me', authenticateToken, async (req: Request, res: Response) => {
+router.get('/me', authMiddleware, async (req: Request, res: Response) => { // ✅ Changed
   try {
     const user = (req as any).user;
-    const userId = user?.userId || user?.id;
+    const userId = user?.id; // ✅ Changed - JWT payload has 'id', not 'userId'
     
     if (!userId) {
       return res.status(401).json({ 
@@ -67,12 +67,12 @@ router.get('/me', authenticateToken, async (req: Request, res: Response) => {
 });
 
 // Update user type
-router.patch('/update-user-type', authenticateToken, userController.updateUserType);
+router.patch('/update-user-type', authMiddleware, userController.updateUserType); // ✅ Changed
 
 // Upload/Update Profile Picture
 router.post(
   '/upload-profile-picture',
-  authenticateToken,
+  authMiddleware, // ✅ Changed
   upload.single('profilePicture'),
   userController.uploadProfilePicture
 );
