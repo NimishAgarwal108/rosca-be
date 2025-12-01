@@ -44,8 +44,8 @@ const userSchema = new Schema({
     },
     userType: {
         type: String,
-        enum: ['host', 'user'],
-        required: false,
+        enum: ['host', 'user', null],
+        default: null,
     },
     isVerified: {
         type: Boolean,
