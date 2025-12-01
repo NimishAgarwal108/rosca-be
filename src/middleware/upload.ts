@@ -23,12 +23,24 @@ const storage = new CloudinaryStorage({
   },
 });
 
-// File filter for validation
+// ✅ FIXED: Better file filter with logging
 const imageFileFilter = (req: any, file: Express.Multer.File, cb: any) => {
-  if (!file.originalname.match(/\.(jpg|jpeg|png|webp)$/i)) {
-    return cb(new Error('Only image files are allowed!'), false);
+  console.log('📁 File filter checking:', {
+    fieldname: file.fieldname,
+    originalname: file.originalname,
+    mimetype: file.mimetype,
+  });
+
+  // ✅ Check MIME type instead of just filename extension
+  const allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+  
+  if (allowedMimeTypes.includes(file.mimetype)) {
+    console.log('✅ File accepted:', file.originalname);
+    cb(null, true);
+  } else {
+    console.error('❌ File rejected:', file.originalname, 'MIME type:', file.mimetype);
+    cb(new Error(`Only image files are allowed! Received: ${file.mimetype}`), false);
   }
-  cb(null, true);
 };
 
 // Create multer upload instance

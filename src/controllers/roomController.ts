@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { Schema } from 'mongoose'; // ✅ Import Schema for ObjectId type
 import * as roomService from '../services/roomService.js';
 import { ApiError } from '../utils/apiError.js';
 import { asyncWrapper } from '../utils/asyncWrapper.js';
@@ -63,7 +64,7 @@ const addRoomLogic = async (req: Request, res: Response) => {
 
   // Defensive trimming and proper type conversion for required fields
   const payload = {
-    userId: req.user.id, // ✅ ADD: Link room to authenticated user
+    userId: new Schema.Types.ObjectId(req.user.id), // ✅ FIX: Convert to Schema.Types.ObjectId
     ownerName: ownerName?.trim() || undefined,
     roomTitle: roomTitle?.trim() || undefined,
     location: location?.trim() || undefined,
@@ -96,7 +97,7 @@ const updateRoomLogic = async (req: Request, res: Response) => {
   }
   
   if (req.user && existingRoom.userId.toString() !== req.user.id) {
-    throw new ApiError(HTTP_STATUS_CODE.FORBIDDEN, 'You can only update your own rooms');
+    throw new ApiError(403, 'You can only update your own rooms'); // ✅ FIX: Use 403 directly
   }
   
   const room = await roomService.updateRoom(id, req.body);
@@ -115,7 +116,7 @@ const deleteRoomLogic = async (req: Request, res: Response) => {
   }
   
   if (req.user && existingRoom.userId.toString() !== req.user.id) {
-    throw new ApiError(HTTP_STATUS_CODE.FORBIDDEN, 'You can only delete your own rooms');
+    throw new ApiError(403, 'You can only delete your own rooms'); // ✅ FIX: Use 403 directly
   }
   
   const room = await roomService.deleteRoom(id);
